@@ -23,6 +23,8 @@
     UIButton *favoriteBtn;
     UIButton *editBtn;
     UIButton *newAddedButton ;//My modification to test Git
+   UIButton *newAddedButton ;//My modification to test Git
+
     
     int pages;
 
