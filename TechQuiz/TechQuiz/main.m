@@ -1,8 +1,8 @@
 //
 //  main.m
-//  CoreDataSample
+//  TechQuiz
 //
-//  Created by Preejith Augustine on 08/05/16.
+//  Created by Preejith Augustine on 11/05/16.
 //  Copyright © 2016 Preejith Augustine. All rights reserved.
 //
 
