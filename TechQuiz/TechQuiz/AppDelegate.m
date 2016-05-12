@@ -18,15 +18,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
     /* Initialize window view */
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
-    
-    /* Initialize tab bar controller, add tabs controllers */
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [self initializeTabBarItems];
-    self.window.rootViewController = self.tabBarController;
-    
-    [self.window makeKeyAndVisible];
-    
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
+//    
+//     //Initialize tab bar controller, add tabs controllers
+//    self.tabBarController = [[UITabBarController alloc] init];
+//    self.tabBarController.viewControllers = [self initializeTabBarItems];
+//    self.window.rootViewController = self.tabBarController;
+//    
+//    [self.window makeKeyAndVisible];
+//    
     
     
     

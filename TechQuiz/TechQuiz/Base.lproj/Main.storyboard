@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OUj-ke-0PE">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="WxU-9W-9S7">
             <objects>
-                <viewController id="OUj-ke-0PE" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController id="OUj-ke-0PE" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4k5-8b-eSA"/>
                         <viewControllerLayoutGuide type="bottom" id="8Tu-O4-W7r"/>
@@ -21,7 +20,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8H-CM-TJE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371" y="-281"/>
+            <point key="canvasLocation" x="-412" y="-281"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Vz8-Mw-VbP">
@@ -57,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fj5-FD-5Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-386" y="392"/>
+            <point key="canvasLocation" x="-391" y="371"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="FHD-Hi-tUX">
