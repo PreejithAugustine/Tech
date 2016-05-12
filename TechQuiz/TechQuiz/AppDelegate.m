@@ -16,7 +16,20 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+   
+    /* Initialize window view */
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
+    
+    /* Initialize tab bar controller, add tabs controllers */
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = [self initializeTabBarItems];
+    self.window.rootViewController = self.tabBarController;
+    
+    [self.window makeKeyAndVisible];
+    
+    
+    
+    
     return YES;
 }
 
@@ -41,5 +54,59 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - tab bar method
+- (NSArray *)initializeTabBarItems
+{
+    NSArray * retval;
+    
+    NSLog(@"hell oooo");
+    
+    /* Initialize view controllers */
+    HomeViewController *homeViewController = [[HomeViewController alloc] init];
+    FavouriteViewController *favouriteViewController = [[FavouriteViewController alloc] init];
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    LogoutViewController *logoutViewController = [[LogoutViewController alloc] init];
+    
+    
+    UINavigationController * navigationController1 = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    UINavigationController * navigationController2 = [[UINavigationController alloc] initWithRootViewController:favouriteViewController];
+    UINavigationController * navigationController3 = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
+    UINavigationController * navigationController4 = [[UINavigationController alloc] initWithRootViewController:logoutViewController];
+    
+    
+    [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed: @"NavigationBarBackGroundImage.png"] forBarMetrics:UIBarMetricsDefault];
+    self.tabBarController = [[UITabBarController alloc]init];
+    self.tabBarController.viewControllers = @[navigationController1,navigationController2,navigationController3,navigationController4];
+    self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
+    
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UITabBarItem *tabBarItem1 = [tabBar.items objectAtIndex:0];
+    UITabBarItem *tabBarItem2 = [tabBar.items objectAtIndex:1];
+    UITabBarItem *tabBarItem3 = [tabBar.items objectAtIndex:2];
+    UITabBarItem *tabBarItem4 = [tabBar.items objectAtIndex:3];
+    
+    
+    
+    
+    // Setting tabbar item title
+    tabBarItem1.title = @"Tab1";
+    tabBarItem2.title = @"Tab2";
+    tabBarItem3.title = @"Tab3";
+    tabBarItem4.title = @"Tab4";
+    
+    //[tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];
+    //    [tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];
+    
+    
+    
+    /* Stuff Navigation Controllers into return value */
+   // retval = [NSArray arrayWithObjects:favoriteViewController,homeViewController,profileViewController,nil];
+    
+    
+    
+    return (retval);
+}
+
 
 @end

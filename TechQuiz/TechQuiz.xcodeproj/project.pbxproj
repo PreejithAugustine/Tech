@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		432E478A1CE3EEFA005BFC86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E47891CE3EEFA005BFC86 /* main.m */; };
 		432E478D1CE3EEFA005BFC86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E478C1CE3EEFA005BFC86 /* AppDelegate.m */; };
-		432E47901CE3EEFA005BFC86 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E478F1CE3EEFA005BFC86 /* ViewController.m */; };
 		432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47911CE3EEFA005BFC86 /* Main.storyboard */; };
 		432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 432E47941CE3EEFA005BFC86 /* Assets.xcassets */; };
 		432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */; };
+		CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B48771CE34D25009C5D8B /* HomeViewController.m */; };
+		CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */; };
+		CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */; };
+		CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */; };
+		CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +24,19 @@
 		432E47891CE3EEFA005BFC86 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		432E478B1CE3EEFA005BFC86 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		432E478C1CE3EEFA005BFC86 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		432E478E1CE3EEFA005BFC86 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		432E478F1CE3EEFA005BFC86 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		432E47921CE3EEFA005BFC86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		432E47941CE3EEFA005BFC86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		432E47971CE3EEFA005BFC86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		432E47991CE3EEFA005BFC86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD2B48761CE34D25009C5D8B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		CD2B48771CE34D25009C5D8B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		CD2B48791CE34D73009C5D8B /* FavouriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteViewController.h; sourceTree = "<group>"; };
+		CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouriteViewController.m; sourceTree = "<group>"; };
+		CD2B487C1CE34DA5009C5D8B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		CD2B487F1CE34DD3009C5D8B /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
+		CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +69,17 @@
 		432E47871CE3EEF9005BFC86 /* TechQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				CDE4A80A1CE43FC3003EFD9F /* Resources */,
 				432E478B1CE3EEFA005BFC86 /* AppDelegate.h */,
 				432E478C1CE3EEFA005BFC86 /* AppDelegate.m */,
-				432E478E1CE3EEFA005BFC86 /* ViewController.h */,
-				432E478F1CE3EEFA005BFC86 /* ViewController.m */,
+				CD2B48761CE34D25009C5D8B /* HomeViewController.h */,
+				CD2B48771CE34D25009C5D8B /* HomeViewController.m */,
+				CD2B48791CE34D73009C5D8B /* FavouriteViewController.h */,
+				CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */,
+				CD2B487C1CE34DA5009C5D8B /* AboutViewController.h */,
+				CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */,
+				CD2B487F1CE34DD3009C5D8B /* LogoutViewController.h */,
+				CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */,
 				432E47911CE3EEFA005BFC86 /* Main.storyboard */,
 				432E47941CE3EEFA005BFC86 /* Assets.xcassets */,
 				432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */,
@@ -77,6 +95,14 @@
 				432E47891CE3EEFA005BFC86 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CDE4A80A1CE43FC3003EFD9F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +164,7 @@
 			files = (
 				432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */,
 				432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */,
+				CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */,
 				432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,9 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				432E47901CE3EEFA005BFC86 /* ViewController.m in Sources */,
+				CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */,
 				432E478D1CE3EEFA005BFC86 /* AppDelegate.m in Sources */,
+				CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */,
+				CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */,
 				432E478A1CE3EEFA005BFC86 /* main.m in Sources */,
+				CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +292,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TechQuiz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TechQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -273,9 +306,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TechQuiz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TechQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -298,6 +334,7 @@
 				432E479E1CE3EEFA005BFC86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

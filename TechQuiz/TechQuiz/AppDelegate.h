@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeViewController.h"
+#import "FavouriteViewController.h"
+#import "AboutViewController.h"
+#import "LogoutViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+//for creating tab bar
+@property(strong,nonatomic) UITabBarController *tabBarController;
 
 @end
 
