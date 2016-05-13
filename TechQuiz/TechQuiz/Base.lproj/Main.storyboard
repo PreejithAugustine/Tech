@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OUj-ke-0PE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OUj-ke-0PE">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -40,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="231" y="-265"/>
         </scene>
-        <!--View Controller-->
+        <!--Favourite View Controller-->
         <scene sceneID="6kX-Rz-a5a">
             <objects>
-                <viewController id="ftT-bS-jk0" sceneMemberID="viewController">
+                <viewController id="ftT-bS-jk0" customClass="FavouriteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UUh-WS-u1h"/>
                         <viewControllerLayoutGuide type="bottom" id="gyc-lr-ur1"/>
@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="-391" y="371"/>
         </scene>
-        <!--View Controller-->
+        <!--About View Controller-->
         <scene sceneID="FHD-Hi-tUX">
             <objects>
-                <viewController id="i2E-pk-tEB" sceneMemberID="viewController">
+                <viewController id="i2E-pk-tEB" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3nR-ZD-xra"/>
                         <viewControllerLayoutGuide type="bottom" id="7Lp-2b-8X4"/>
@@ -75,6 +75,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxv-iL-kZO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="285" y="403"/>
+        </scene>
+        <!--Logout View Controller-->
+        <scene sceneID="oTi-zT-uCH">
+            <objects>
+                <viewController id="zZZ-hp-M2S" customClass="LogoutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ROi-1x-O1q"/>
+                        <viewControllerLayoutGuide type="bottom" id="MfV-aJ-7kM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1TG-w3-RO8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3M5-QX-yKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="616" y="254"/>
         </scene>
         <!--Dropdown List-->
         <scene sceneID="Srk-al-8bU">

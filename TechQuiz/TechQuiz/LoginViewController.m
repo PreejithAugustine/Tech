@@ -163,8 +163,8 @@
 
 
 -(void) loginAction{
-    NSString *strUserName=@"Admin";
-    NSString *strPassword=@"admin123";
+    NSString *strUserName=@"a";
+    NSString *strPassword=@"a";
     NSLog(@"pass %@",passwordTF.text);
      NSLog(@"pass %@",userNameTF.text);
     if (userNameTF.text.length==0)
