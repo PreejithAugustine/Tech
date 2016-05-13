@@ -28,6 +28,9 @@
      BOOL listFlag;
      UIView *selectCategoryTF;
     
+    
+     UIScrollView*userProfileScrollView;
+    
 }
 
 @end
