@@ -30,6 +30,7 @@
 		CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF51CE5BA2900371CA2 /* Logout.png */; };
 		CDA02D001CE5C94A00371CA2 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFE1CE5C94A00371CA2 /* heart.png */; };
 		CDA02D011CE5C94A00371CA2 /* Heart2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFF1CE5C94A00371CA2 /* Heart2.png */; };
+		CDA02D031CE5DC6D00371CA2 /* NavigationBar.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CDA02D021CE5DC6D00371CA2 /* NavigationBar.jpeg */; };
 		CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		CDA02CF51CE5BA2900371CA2 /* Logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout.png; sourceTree = "<group>"; };
 		CDA02CFE1CE5C94A00371CA2 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		CDA02CFF1CE5C94A00371CA2 /* Heart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Heart2.png; sourceTree = "<group>"; };
+		CDA02D021CE5DC6D00371CA2 /* NavigationBar.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NavigationBar.jpeg; sourceTree = "<group>"; };
 		CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 		432CDAEA1CE56284002DCC83 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDA02D021CE5DC6D00371CA2 /* NavigationBar.jpeg */,
 				CDA02CEE1CE5BA2900371CA2 /* About_Selected.png */,
 				CDA02CFE1CE5C94A00371CA2 /* heart.png */,
 				CDA02CFF1CE5C94A00371CA2 /* Heart2.png */,
@@ -229,6 +232,7 @@
 				CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */,
 				432CDAEF1CE562A1002DCC83 /* filter.png in Resources */,
 				432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */,
+				CDA02D031CE5DC6D00371CA2 /* NavigationBar.jpeg in Resources */,
 				432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */,
 				CDA02CFC1CE5BA2900371CA2 /* Logout_Selected.png in Resources */,
 				CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */,
