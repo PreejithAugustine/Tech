@@ -27,6 +27,8 @@
 		CDA02CFB1CE5BA2900371CA2 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF31CE5BA2900371CA2 /* Home.png */; };
 		CDA02CFC1CE5BA2900371CA2 /* Logout_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF41CE5BA2900371CA2 /* Logout_Selected.png */; };
 		CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF51CE5BA2900371CA2 /* Logout.png */; };
+		CDA02D001CE5C94A00371CA2 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFE1CE5C94A00371CA2 /* heart.png */; };
+		CDA02D011CE5C94A00371CA2 /* Heart2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFF1CE5C94A00371CA2 /* Heart2.png */; };
 		CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		CDA02CF31CE5BA2900371CA2 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		CDA02CF41CE5BA2900371CA2 /* Logout_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout_Selected.png; sourceTree = "<group>"; };
 		CDA02CF51CE5BA2900371CA2 /* Logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout.png; sourceTree = "<group>"; };
+		CDA02CFE1CE5C94A00371CA2 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		CDA02CFF1CE5C94A00371CA2 /* Heart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Heart2.png; sourceTree = "<group>"; };
 		CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				CDA02CEE1CE5BA2900371CA2 /* About_Selected.png */,
+				CDA02CFE1CE5C94A00371CA2 /* heart.png */,
+				CDA02CFF1CE5C94A00371CA2 /* Heart2.png */,
 				CDA02CEF1CE5BA2900371CA2 /* About.png */,
 				CDA02CF01CE5BA2900371CA2 /* Heart_Selected.png */,
 				CDA02CF21CE5BA2900371CA2 /* Home_Selected.png */,
@@ -208,9 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDA02CF71CE5BA2900371CA2 /* About.png in Resources */,
+				CDA02D011CE5C94A00371CA2 /* Heart2.png in Resources */,
 				CDA02CFA1CE5BA2900371CA2 /* Home_Selected.png in Resources */,
 				CDA02CF61CE5BA2900371CA2 /* About_Selected.png in Resources */,
 				432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */,
+				CDA02D001CE5C94A00371CA2 /* heart.png in Resources */,
 				CDA02CFB1CE5BA2900371CA2 /* Home.png in Resources */,
 				CDA02CF81CE5BA2900371CA2 /* Heart_Selected.png in Resources */,
 				CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */,
