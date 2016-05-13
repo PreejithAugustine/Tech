@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DropdownList.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 
 @end

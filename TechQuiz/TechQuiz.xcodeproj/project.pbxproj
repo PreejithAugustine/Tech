@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		432CDAE21CE4F92B002DCC83 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432CDAE11CE4F92B002DCC83 /* LoginViewController.m */; };
-		432CDAE41CE4FC99002DCC83 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAE31CE4FC99002DCC83 /* Images */; };
-		432CDAE61CE4FCC2002DCC83 /* quiz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAE51CE4FCC2002DCC83 /* quiz.jpg */; };
+		432CDAEE1CE562A1002DCC83 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAEB1CE562A1002DCC83 /* heart.png */; };
+		432CDAEF1CE562A1002DCC83 /* filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAEC1CE562A1002DCC83 /* filter.png */; };
+		432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAED1CE562A1002DCC83 /* quiz.jpg */; };
+		432CDAF31CE56456002DCC83 /* DropdownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 432CDAF21CE56456002DCC83 /* DropdownList.m */; };
 		432E478A1CE3EEFA005BFC86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E47891CE3EEFA005BFC86 /* main.m */; };
 		432E478D1CE3EEFA005BFC86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E478C1CE3EEFA005BFC86 /* AppDelegate.m */; };
 		432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47911CE3EEFA005BFC86 /* Main.storyboard */; };
@@ -25,8 +27,11 @@
 /* Begin PBXFileReference section */
 		432CDAE01CE4F92B002DCC83 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		432CDAE11CE4F92B002DCC83 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		432CDAE31CE4FC99002DCC83 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = SOURCE_ROOT; };
-		432CDAE51CE4FCC2002DCC83 /* quiz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = quiz.jpg; path = ../Images/quiz.jpg; sourceTree = "<group>"; };
+		432CDAEB1CE562A1002DCC83 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		432CDAEC1CE562A1002DCC83 /* filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter.png; sourceTree = "<group>"; };
+		432CDAED1CE562A1002DCC83 /* quiz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = quiz.jpg; sourceTree = "<group>"; };
+		432CDAF11CE56456002DCC83 /* DropdownList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownList.h; sourceTree = "<group>"; };
+		432CDAF21CE56456002DCC83 /* DropdownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownList.m; sourceTree = "<group>"; };
 		432E47851CE3EEF9005BFC86 /* TechQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E47891CE3EEFA005BFC86 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		432E478B1CE3EEFA005BFC86 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,6 +62,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		432CDAEA1CE56284002DCC83 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				432CDAEB1CE562A1002DCC83 /* heart.png */,
+				432CDAEC1CE562A1002DCC83 /* filter.png */,
+				432CDAED1CE562A1002DCC83 /* quiz.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		432E477C1CE3EEF9005BFC86 = {
 			isa = PBXGroup;
 			children = (
@@ -76,7 +91,6 @@
 		432E47871CE3EEF9005BFC86 /* TechQuiz */ = {
 			isa = PBXGroup;
 			children = (
-				432CDAE31CE4FC99002DCC83 /* Images */,
 				CDE4A80A1CE43FC3003EFD9F /* Resources */,
 				432E478B1CE3EEFA005BFC86 /* AppDelegate.h */,
 				432E478C1CE3EEFA005BFC86 /* AppDelegate.m */,
@@ -90,6 +104,8 @@
 				CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */,
 				CD2B487F1CE34DD3009C5D8B /* LogoutViewController.h */,
 				CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */,
+				432CDAF11CE56456002DCC83 /* DropdownList.h */,
+				432CDAF21CE56456002DCC83 /* DropdownList.m */,
 				432E47911CE3EEFA005BFC86 /* Main.storyboard */,
 				432E47941CE3EEFA005BFC86 /* Assets.xcassets */,
 				432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */,
@@ -110,8 +126,8 @@
 		CDE4A80A1CE43FC3003EFD9F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				432CDAEA1CE56284002DCC83 /* Images */,
 				CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */,
-				432CDAE51CE4FCC2002DCC83 /* quiz.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -173,11 +189,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				432CDAE41CE4FC99002DCC83 /* Images in Resources */,
 				432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */,
+				432CDAEF1CE562A1002DCC83 /* filter.png in Resources */,
 				432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */,
+				432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */,
+				432CDAEE1CE562A1002DCC83 /* heart.png in Resources */,
 				CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */,
-				432CDAE61CE4FCC2002DCC83 /* quiz.jpg in Resources */,
 				432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +208,7 @@
 			files = (
 				CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */,
 				432E478D1CE3EEFA005BFC86 /* AppDelegate.m in Sources */,
+				432CDAF31CE56456002DCC83 /* DropdownList.m in Sources */,
 				CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */,
 				CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */,
 				432CDAE21CE4F92B002DCC83 /* LoginViewController.m in Sources */,

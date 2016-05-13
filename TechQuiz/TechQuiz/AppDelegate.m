@@ -17,19 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
-    /* Initialize window view */
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
-//    
-//     //Initialize tab bar controller, add tabs controllers
-//    self.tabBarController = [[UITabBarController alloc] init];
-//    self.tabBarController.viewControllers = [self initializeTabBarItems];
-//    self.window.rootViewController = self.tabBarController;
-//    
-//    [self.window makeKeyAndVisible];
-//    
-    
-    
-    
+ 
+    [self initializeTabBarItems];
     return YES;
 }
 
@@ -59,9 +48,7 @@
 - (NSArray *)initializeTabBarItems
 {
     NSArray * retval;
-    
-    NSLog(@"hell oooo");
-    
+  
     /* Initialize view controllers */
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
     FavouriteViewController *favouriteViewController = [[FavouriteViewController alloc] init];
@@ -74,9 +61,11 @@
     UINavigationController * navigationController3 = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     UINavigationController * navigationController4 = [[UINavigationController alloc] initWithRootViewController:logoutViewController];
     
-    
-    [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed: @"NavigationBarBackGroundImage.png"] forBarMetrics:UIBarMetricsDefault];
+    //[navigationController1.navigationBar setBackgroundColor:[UIColor blackColor]];
+  // [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed: @"NavigationBarBackGroundImage.png"] forBarMetrics:UIBarMetricsDefault];
     self.tabBarController = [[UITabBarController alloc]init];
+    _tabBarController.view.tintColor = [UIColor redColor];
+   
     self.tabBarController.viewControllers = @[navigationController1,navigationController2,navigationController3,navigationController4];
     self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
     
@@ -90,10 +79,10 @@
     
     
     // Setting tabbar item title
-    tabBarItem1.title = @"Tab1";
-    tabBarItem2.title = @"Tab2";
-    tabBarItem3.title = @"Tab3";
-    tabBarItem4.title = @"Tab4";
+    tabBarItem1.title = @"Home";
+    tabBarItem2.title = @"Favorite";
+    tabBarItem3.title = @"About";
+    tabBarItem4.title = @"Logout";
     
     //[tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];
     //    [tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];

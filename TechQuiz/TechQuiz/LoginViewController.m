@@ -55,9 +55,7 @@
     logoImageView.image = [UIImage imageNamed:@"quiz.jpg"];
     logoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [loginView addSubview:logoImageView];
-    
-    
-    
+
     userNameTF=[[UITextField alloc]initWithFrame:CGRectMake(20, screenHeight-280,screenWidth-40, 40)];
     userNameTF.center = CGPointMake(self.view.frame.size.width/2-10,screenHeight-275);
     userNameTF.placeholder = @"User Name";
@@ -211,10 +209,14 @@
 
     HomeViewController *homeView = [[HomeViewController alloc] init];
     homeViewController = homeView;
-    UINavigationController *viewMenu = [[UINavigationController alloc] initWithRootViewController:homeView];
-      AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-     [appDelegate.window setRootViewController:viewMenu];
-      viewMenu.navigationBar.barTintColor=[UIColor darkGrayColor];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+     
+    [appDelegate.tabBarController setSelectedIndex:0];
+    [appDelegate.window setRootViewController:appDelegate.tabBarController];
+//    UINavigationController *viewMenu = [[UINavigationController alloc] initWithRootViewController:homeView];
+//      AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//     [appDelegate.window setRootViewController:viewMenu];
+//      viewMenu.navigationBar.barTintColor=[UIColor darkGrayColor];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -231,6 +233,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+-(void)Intialtheview {
+  
 }
 
 /*
