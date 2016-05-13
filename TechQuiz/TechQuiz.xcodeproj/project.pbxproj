@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		432CDAE21CE4F92B002DCC83 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432CDAE11CE4F92B002DCC83 /* LoginViewController.m */; };
-		432CDAEE1CE562A1002DCC83 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAEB1CE562A1002DCC83 /* heart.png */; };
 		432CDAEF1CE562A1002DCC83 /* filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAEC1CE562A1002DCC83 /* filter.png */; };
 		432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 432CDAED1CE562A1002DCC83 /* quiz.jpg */; };
 		432CDAF31CE56456002DCC83 /* DropdownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 432CDAF21CE56456002DCC83 /* DropdownList.m */; };
@@ -21,13 +20,19 @@
 		CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */; };
 		CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */; };
 		CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */; };
+		CDA02CF61CE5BA2900371CA2 /* About_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CEE1CE5BA2900371CA2 /* About_Selected.png */; };
+		CDA02CF71CE5BA2900371CA2 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CEF1CE5BA2900371CA2 /* About.png */; };
+		CDA02CF81CE5BA2900371CA2 /* Heart_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF01CE5BA2900371CA2 /* Heart_Selected.png */; };
+		CDA02CFA1CE5BA2900371CA2 /* Home_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF21CE5BA2900371CA2 /* Home_Selected.png */; };
+		CDA02CFB1CE5BA2900371CA2 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF31CE5BA2900371CA2 /* Home.png */; };
+		CDA02CFC1CE5BA2900371CA2 /* Logout_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF41CE5BA2900371CA2 /* Logout_Selected.png */; };
+		CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CF51CE5BA2900371CA2 /* Logout.png */; };
 		CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		432CDAE01CE4F92B002DCC83 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		432CDAE11CE4F92B002DCC83 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		432CDAEB1CE562A1002DCC83 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		432CDAEC1CE562A1002DCC83 /* filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter.png; sourceTree = "<group>"; };
 		432CDAED1CE562A1002DCC83 /* quiz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = quiz.jpg; sourceTree = "<group>"; };
 		432CDAF11CE56456002DCC83 /* DropdownList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownList.h; sourceTree = "<group>"; };
@@ -48,6 +53,13 @@
 		CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		CD2B487F1CE34DD3009C5D8B /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
 		CD2B48801CE34DD3009C5D8B /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		CDA02CEE1CE5BA2900371CA2 /* About_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About_Selected.png; sourceTree = "<group>"; };
+		CDA02CEF1CE5BA2900371CA2 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		CDA02CF01CE5BA2900371CA2 /* Heart_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Heart_Selected.png; sourceTree = "<group>"; };
+		CDA02CF21CE5BA2900371CA2 /* Home_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home_Selected.png; sourceTree = "<group>"; };
+		CDA02CF31CE5BA2900371CA2 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
+		CDA02CF41CE5BA2900371CA2 /* Logout_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout_Selected.png; sourceTree = "<group>"; };
+		CDA02CF51CE5BA2900371CA2 /* Logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout.png; sourceTree = "<group>"; };
 		CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +77,13 @@
 		432CDAEA1CE56284002DCC83 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				432CDAEB1CE562A1002DCC83 /* heart.png */,
+				CDA02CEE1CE5BA2900371CA2 /* About_Selected.png */,
+				CDA02CEF1CE5BA2900371CA2 /* About.png */,
+				CDA02CF01CE5BA2900371CA2 /* Heart_Selected.png */,
+				CDA02CF21CE5BA2900371CA2 /* Home_Selected.png */,
+				CDA02CF31CE5BA2900371CA2 /* Home.png */,
+				CDA02CF41CE5BA2900371CA2 /* Logout_Selected.png */,
+				CDA02CF51CE5BA2900371CA2 /* Logout.png */,
 				432CDAEC1CE562A1002DCC83 /* filter.png */,
 				432CDAED1CE562A1002DCC83 /* quiz.jpg */,
 			);
@@ -189,11 +207,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDA02CF71CE5BA2900371CA2 /* About.png in Resources */,
+				CDA02CFA1CE5BA2900371CA2 /* Home_Selected.png in Resources */,
+				CDA02CF61CE5BA2900371CA2 /* About_Selected.png in Resources */,
 				432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */,
+				CDA02CFB1CE5BA2900371CA2 /* Home.png in Resources */,
+				CDA02CF81CE5BA2900371CA2 /* Heart_Selected.png in Resources */,
+				CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */,
 				432CDAEF1CE562A1002DCC83 /* filter.png in Resources */,
 				432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */,
 				432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */,
-				432CDAEE1CE562A1002DCC83 /* heart.png in Resources */,
+				CDA02CFC1CE5BA2900371CA2 /* Logout_Selected.png in Resources */,
 				CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */,
 				432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */,
 			);

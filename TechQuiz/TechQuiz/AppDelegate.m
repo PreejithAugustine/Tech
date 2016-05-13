@@ -79,13 +79,33 @@
     
     
     // Setting tabbar item title
-    tabBarItem1.title = @"Home";
-    tabBarItem2.title = @"Favorite";
-    tabBarItem3.title = @"About";
-    tabBarItem4.title = @"Logout";
+    tabBarItem1.title = @"";
+    tabBarItem2.title = @"";
+    tabBarItem3.title = @"";
+    tabBarItem4.title = @"";
     
-    //[tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];
-    //    [tabBarItem1 setFinishedSelectedImage:[UIImage imageNamed:@"favorite_selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"favorite.png"]];
+    // Setting tab bar item image
+    
+    [tabBarItem1 setImage:[[UIImage imageNamed:@"Home.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [tabBarItem1 setSelectedImage:[[UIImage imageNamed:@"Home_Selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    [tabBarItem2 setImage:[[UIImage imageNamed:@"Heart2.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [tabBarItem2 setSelectedImage:[[UIImage imageNamed:@"Heart_Selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    [tabBarItem3 setImage:[[UIImage imageNamed:@"About.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [tabBarItem3 setSelectedImage:[[UIImage imageNamed:@"About_Selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    [tabBarItem4 setImage:[[UIImage imageNamed:@"Logout.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [tabBarItem4 setSelectedImage:[[UIImage imageNamed:@"Logout_Selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    
+    
+    [tabBarItem1 setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+    [tabBarItem2 setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+    [tabBarItem3 setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+    [tabBarItem4 setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+    
+
     
     
     
