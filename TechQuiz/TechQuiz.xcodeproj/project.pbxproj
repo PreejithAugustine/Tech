@@ -17,6 +17,7 @@
 		432E47931CE3EEFA005BFC86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47911CE3EEFA005BFC86 /* Main.storyboard */; };
 		432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 432E47941CE3EEFA005BFC86 /* Assets.xcassets */; };
 		432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */; };
+		4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */; };
 		CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B48771CE34D25009C5D8B /* HomeViewController.m */; };
 		CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */; };
 		CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */; };
@@ -40,6 +41,8 @@
 		432E47941CE3EEFA005BFC86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		432E47971CE3EEFA005BFC86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		432E47991CE3EEFA005BFC86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4348917C1CE5A74A00BF12CF /* UIView+TechCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechCategories.h"; sourceTree = "<group>"; };
+		4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechCategories.m"; sourceTree = "<group>"; };
 		CD2B48761CE34D25009C5D8B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CD2B48771CE34D25009C5D8B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CD2B48791CE34D73009C5D8B /* FavouriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteViewController.h; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 		CDE4A80A1CE43FC3003EFD9F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4348917C1CE5A74A00BF12CF /* UIView+TechCategories.h */,
+				4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */,
 				432CDAEA1CE56284002DCC83 /* Images */,
 				CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */,
 			);
@@ -213,6 +218,7 @@
 				CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */,
 				432CDAE21CE4F92B002DCC83 /* LoginViewController.m in Sources */,
 				432E478A1CE3EEFA005BFC86 /* main.m in Sources */,
+				4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */,
 				CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

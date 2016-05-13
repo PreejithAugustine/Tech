@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-412" y="-281"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="Vz8-Mw-VbP">
             <objects>
-                <viewController id="zOK-PH-4Su" sceneMemberID="viewController">
+                <viewController id="zOK-PH-4Su" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UxA-iH-274"/>
                         <viewControllerLayoutGuide type="bottom" id="Pa9-FU-WIS"/>
@@ -38,7 +38,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r6p-cc-uPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="291" y="-281"/>
+            <point key="canvasLocation" x="231" y="-265"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="6kX-Rz-a5a">

@@ -145,15 +145,10 @@
     [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:kbHideButton];
 
-     [self loadList];
+     //[self loadList];
     
     
     selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
-    //selectCategoryTF.delegate = self;
-//    selectCategoryTF.text = NSLocalizedString(@"SELECT_A_CATEGORY",nil);
-//    selectCategoryTF.font = [UIFont fontWithName:@"Helvetica Neue" size:15];
-//    selectCategoryTF.textColor=[UIColor redColor];
-//    selectCategoryTF.backgroundColor=[UIColor redColor];
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
     
@@ -204,28 +199,30 @@
 - (void)showList {
     [self dismissKeyboard];
     // kbHideButton.hidden=false;
-    if (listFlag) {
-        kbHideButton.hidden=false;
-        CGRect frame = selectCategoryTF.frame;
-        [UIView animateWithDuration:0.2 animations:^{
-            list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 120);
-            [list.dropdownTableView flashScrollIndicators];
-                 kbHideButton.hidden=false;
-        }completion:^(BOOL finished) {
-            listFlag = false;
-        }];
-    }else {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            list.view.frame = CGRectMake(list.view.frame.origin.x, list.view.frame.origin.y, list.view.frame.size.width, 0);
-                   kbHideButton.hidden=TRUE;
-            
-        }completion:^(BOOL finished) {
-            listFlag = true;
-        }];
-        
-        
-    }
+//    if (listFlag) {
+//        kbHideButton.hidden=false;
+//        CGRect frame = selectCategoryTF.frame;
+//        [UIView animateWithDuration:0.2 animations:^{
+//            list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 120);
+//            [list.dropdownTableView flashScrollIndicators];
+//                 kbHideButton.hidden=false;
+//        }completion:^(BOOL finished) {
+//            listFlag = false;
+//        }];
+//    }else {
+//        
+//        [UIView animateWithDuration:0.2 animations:^{
+//            list.view.frame = CGRectMake(list.view.frame.origin.x, list.view.frame.origin.y, list.view.frame.size.width, 0);
+//                   kbHideButton.hidden=TRUE;
+//            
+//        }completion:^(BOOL finished) {
+//            listFlag = true;
+//        }];
+//        
+//        
+//    }
+    [UIView makeTableView];
+    
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
