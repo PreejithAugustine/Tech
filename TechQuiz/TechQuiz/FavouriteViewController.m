@@ -119,7 +119,7 @@
     nextbutton.titleLabel.font=[UIFont fontWithName:@"Helvetica" size:25];
     [nextbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [nextbutton setTitle:@" > " forState:UIControlStateNormal];
-    nextbutton.frame = CGRectMake(screenWidth-250,10,30,30);
+    nextbutton.frame = CGRectMake(screenWidth-170,10,30,30);
     [topMenuView addSubview:nextbutton];
     
     
