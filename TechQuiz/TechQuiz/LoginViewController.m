@@ -165,6 +165,8 @@
 -(void) loginAction{
     NSString *strUserName=@"a";
     NSString *strPassword=@"a";
+    passwordTF.text=@"a";
+    userNameTF.text=@"a";
     NSLog(@"pass %@",passwordTF.text);
      NSLog(@"pass %@",userNameTF.text);
     if (userNameTF.text.length==0)
@@ -203,8 +205,6 @@
 
 
 #pragma mark -  Text Field delegates
-
-
 -(void) navigateToHomeView{
 
     HomeViewController *homeView = [[HomeViewController alloc] init];

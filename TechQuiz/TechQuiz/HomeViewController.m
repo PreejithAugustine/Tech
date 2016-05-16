@@ -17,19 +17,28 @@
     
     UIView *baseView;
     UIView *topMenuView;
+    UIView *selectCategoryTF;
     
      UITextField *questionNoTF;
      UILabel *totalQuestionNolbl;
+     UILabel *questionNolbl;
+     UILabel *questiontextlbl;
+     UILabel *answer;
     
      UIButton *previousbutton;
      UIButton *kbHideButton;
+     UIButton * answerButton;
     
      DropdownList *list;
      BOOL listFlag;
-     UIView *selectCategoryTF;
+ 
+     UIScrollView*homeScrollView;
+
+     NSArray *tableData;
+     UITableView *tableViews;
     
-    
-     UIScrollView*userProfileScrollView;
+     int tableSelected;
+     int selectedIndexPath;
     
 }
 
@@ -42,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+     
     [self.navigationItem setTitle:@"Thech -Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
@@ -97,6 +106,9 @@
     [self addChildViewController:list];
     
 }
+
+
+
 
 - (void)cellClicked:(NSString *)contentLabel {
     
@@ -170,6 +182,8 @@
     topMenuView.backgroundColor = [UIColor whiteColor];
     [baseView addSubview:topMenuView];
     
+    
+    tableSelected=0;
     UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
     [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
@@ -247,19 +261,157 @@
     
     [self loadList];
     
+    homeScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,topMenuView.frame.size.height,screenWidth,screenHeight-50)];
+    homeScrollView.showsVerticalScrollIndicator=YES;
+    homeScrollView.scrollEnabled=YES;
+    homeScrollView.userInteractionEnabled=YES;
+    homeScrollView.contentSize = CGSizeMake(screenWidth,screenHeight+150);
+    homeScrollView.bounces = false;
+    homeScrollView.backgroundColor=[UIColor lightGrayColor];
+    [baseView addSubview:homeScrollView];
+
+
+    NSString * questionNumber =@"1 ";
+    NSString * questiontext =@"Who invented C programming Who invented C ";
+    NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
+    questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
+    questiontextlbl.text=questions;
+    questiontextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+    CGSize maximumSize = CGSizeMake(questiontextlbl.frame.size.width, MAXFLOAT);
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:questiontextlbl.text];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [attributedString setAttributes:@{NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, attributedString.length)];
+    [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:16]} range:NSMakeRange(0, attributedString.length)];
+    CGSize expectedSize = [attributedString boundingRectWithSize:maximumSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    questiontextlbl.numberOfLines =(expectedSize.height/20)+1;
+    NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
+    questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
+    questiontextlbl.textAlignment=NSTextAlignmentLeft;
+   // questiontextlbl.backgroundColor=[UIColor whiteColor];
+   // questiontextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:20];
+    [questiontextlbl setTextColor:[UIColor blackColor]];
+     [homeScrollView addSubview:questiontextlbl];
+    
+    UIView * answerOptionsView=[[UIView alloc]initWithFrame:CGRectMake(10,questiontextlbl.frame.size.height+20,screenWidth-20 ,200)];
+   // answerOptionsView.backgroundColor=[UIColor greenColor];
+      [homeScrollView addSubview:answerOptionsView];
+    
+    tableViews = [self makeTableView];
+    [tableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"newFriendCell"];
+   [answerOptionsView addSubview:tableViews];
+    
     
     selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
-    //selectCategoryTF.delegate = self;
-    //    selectCategoryTF.text = NSLocalizedString(@"SELECT_A_CATEGORY",nil);
-    //    selectCategoryTF.font = [UIFont fontWithName:@"Helvetica Neue" size:15];
-    //    selectCategoryTF.textColor=[UIColor redColor];
-    //    selectCategoryTF.backgroundColor=[UIColor redColor];
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
     
-    
+    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
+    answerButton.backgroundColor=[UIColor redColor];
+    answerButton.hidden=TRUE;
+    answerButton.layer.cornerRadius=10;
+    answerButton.clipsToBounds=YES;
+    [answerButton setBackgroundColor:[UIColor whiteColor]];
+    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
+    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
+    [homeScrollView addSubview:answerButton];
     
 }
 
+
+-(void) answerAction{
+  //[homeScrollView setContentOffset:CGPointZero animated:YES];
+    CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
+    [homeScrollView setContentOffset:bottomOffset animated:YES];
+}
+
+#pragma mark -Table View
+-(UITableView *)makeTableView
+{
+
+    CGRect tableFrame = CGRectMake(0, 0,screenWidth-20, 200);
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:tableFrame style:UITableViewStylePlain];
+    
+    tableView.rowHeight = 50;
+    tableView.sectionFooterHeight = 22;
+    tableView.sectionHeaderHeight = 22;
+    tableView.scrollEnabled = YES;
+    tableView.showsVerticalScrollIndicator = YES;
+    tableView.userInteractionEnabled = YES;
+    tableView.bounces = YES;
+    tableView.layer.cornerRadius=5;
+
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    
+    return tableView;
+}
+
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"newFriendCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //CGRect ImageViewFrame = CGRectMake(17,19,15,15);
+    CGRect Label1Frame = CGRectMake(40,17,screenWidth-20,18);
+    UILabel *lblTemp;
+    UIImageView *imgView;
+    lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
+    
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+
+    [lblTemp setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
+    lblTemp.tag = 1;
+    lblTemp.backgroundColor=[UIColor clearColor];
+    lblTemp.numberOfLines=0;
+    lblTemp.text=@"Friends";
+    [cell.contentView addSubview:lblTemp];
+    
+    cell.imageView .frame= CGRectMake(17,19,15,15);
+    if(tableSelected==0){
+    [cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
+    }
+    else{
+        if(indexPath.row==selectedIndexPath){
+            [cell.imageView setImage:[UIImage imageNamed:@"checkin.png"]];}
+        else{[cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
+        }
+    }
+    
+    
+    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [cell.contentView addSubview:imgView];
+    
+    return cell;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView
+{
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    tableSelected=1;
+    selectedIndexPath=indexPath.row;
+    answerButton.hidden=false;
+  
+     [tableView reloadData];
+    
+  
+}
 
 @end

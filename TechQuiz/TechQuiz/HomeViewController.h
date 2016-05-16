@@ -10,7 +10,7 @@
 #import "DropdownList.h"
 #import "UIView+TechCategories.h"
 
-@interface HomeViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
+@interface HomeViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDelegate, UITableViewDataSource>
 
 
 

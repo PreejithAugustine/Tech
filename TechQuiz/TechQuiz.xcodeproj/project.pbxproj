@@ -17,6 +17,8 @@
 		432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 432E47941CE3EEFA005BFC86 /* Assets.xcassets */; };
 		432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */; };
 		4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */; };
+		4357A4111CE9A757005B6F7E /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4357A40F1CE9A757005B6F7E /* checkin.png */; };
+		4357A4121CE9A757005B6F7E /* checkout.png in Resources */ = {isa = PBXBuildFile; fileRef = 4357A4101CE9A757005B6F7E /* checkout.png */; };
 		CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B48771CE34D25009C5D8B /* HomeViewController.m */; };
 		CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487A1CE34D73009C5D8B /* FavouriteViewController.m */; };
 		CD2B487E1CE34DA5009C5D8B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2B487D1CE34DA5009C5D8B /* AboutViewController.m */; };
@@ -51,6 +53,8 @@
 		432E47991CE3EEFA005BFC86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4348917C1CE5A74A00BF12CF /* UIView+TechCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechCategories.h"; sourceTree = "<group>"; };
 		4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechCategories.m"; sourceTree = "<group>"; };
+		4357A40F1CE9A757005B6F7E /* checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkin.png; sourceTree = "<group>"; };
+		4357A4101CE9A757005B6F7E /* checkout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkout.png; sourceTree = "<group>"; };
 		CD2B48761CE34D25009C5D8B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CD2B48771CE34D25009C5D8B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CD2B48791CE34D73009C5D8B /* FavouriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouriteViewController.h; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				CDA02CFE1CE5C94A00371CA2 /* heart.png */,
 				CDA02CFF1CE5C94A00371CA2 /* Heart2.png */,
 				CDA02CEF1CE5BA2900371CA2 /* About.png */,
+				4357A40F1CE9A757005B6F7E /* checkin.png */,
+				4357A4101CE9A757005B6F7E /* checkout.png */,
 				CDA02CF01CE5BA2900371CA2 /* Heart_Selected.png */,
 				CDA02CF21CE5BA2900371CA2 /* Home_Selected.png */,
 				CDA02CF31CE5BA2900371CA2 /* Home.png */,
@@ -227,10 +233,12 @@
 				CDA02CF61CE5BA2900371CA2 /* About_Selected.png in Resources */,
 				432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */,
 				CDA02D001CE5C94A00371CA2 /* heart.png in Resources */,
+				4357A4111CE9A757005B6F7E /* checkin.png in Resources */,
 				CDA02CFB1CE5BA2900371CA2 /* Home.png in Resources */,
 				CDA02CF81CE5BA2900371CA2 /* Heart_Selected.png in Resources */,
 				CDA02CFD1CE5BA2900371CA2 /* Logout.png in Resources */,
 				432CDAEF1CE562A1002DCC83 /* filter.png in Resources */,
+				4357A4121CE9A757005B6F7E /* checkout.png in Resources */,
 				432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */,
 				CDA02D031CE5DC6D00371CA2 /* NavigationBar.jpeg in Resources */,
 				432CDAF01CE562A1002DCC83 /* quiz.jpg in Resources */,
