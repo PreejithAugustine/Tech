@@ -31,6 +31,7 @@
 		CDA02D001CE5C94A00371CA2 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFE1CE5C94A00371CA2 /* heart.png */; };
 		CDA02D011CE5C94A00371CA2 /* Heart2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA02CFF1CE5C94A00371CA2 /* Heart2.png */; };
 		CDA02D031CE5DC6D00371CA2 /* NavigationBar.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CDA02D021CE5DC6D00371CA2 /* NavigationBar.jpeg */; };
+		CDA05EB01CE9B34900202D7C /* TechQuizModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDA05EAE1CE9B34900202D7C /* TechQuizModel.xcdatamodeld */; };
 		CDE4A80E1CE44209003EFD9F /* NavigationBarBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		CDA02CFE1CE5C94A00371CA2 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		CDA02CFF1CE5C94A00371CA2 /* Heart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Heart2.png; sourceTree = "<group>"; };
 		CDA02D021CE5DC6D00371CA2 /* NavigationBar.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NavigationBar.jpeg; sourceTree = "<group>"; };
+		CDA05EAF1CE9B34900202D7C /* TechQuizModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TechQuizModel.xcdatamodel; sourceTree = "<group>"; };
 		CDE4A80D1CE44209003EFD9F /* NavigationBarBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				432E47941CE3EEFA005BFC86 /* Assets.xcassets */,
 				432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */,
 				432E47991CE3EEFA005BFC86 /* Info.plist */,
+				CDA05EAE1CE9B34900202D7C /* TechQuizModel.xcdatamodeld */,
 				432E47881CE3EEF9005BFC86 /* Supporting Files */,
 			);
 			path = TechQuiz;
@@ -253,6 +256,7 @@
 				CD2B487B1CE34D73009C5D8B /* FavouriteViewController.m in Sources */,
 				CD2B48811CE34DD3009C5D8B /* LogoutViewController.m in Sources */,
 				432CDAE21CE4F92B002DCC83 /* LoginViewController.m in Sources */,
+				CDA05EB01CE9B34900202D7C /* TechQuizModel.xcdatamodeld in Sources */,
 				432E478A1CE3EEFA005BFC86 /* main.m in Sources */,
 				4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */,
 				CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */,
@@ -411,6 +415,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CDA05EAE1CE9B34900202D7C /* TechQuizModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CDA05EAF1CE9B34900202D7C /* TechQuizModel.xcdatamodel */,
+			);
+			currentVersion = CDA05EAF1CE9B34900202D7C /* TechQuizModel.xcdatamodel */;
+			path = TechQuizModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 432E477D1CE3EEF9005BFC86 /* Project object */;
 }
