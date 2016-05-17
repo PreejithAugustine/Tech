@@ -4,7 +4,12 @@
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QuestionsKit" syncable="YES">
+        <attribute name="attribute" optional="YES" syncable="YES"/>
+        <attribute name="questionNo" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="LoginDetails" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="75"/>
     </elements>
 </model>
