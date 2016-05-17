@@ -57,7 +57,7 @@
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
     navBar.translucent      = false;
-    self.navigationItem.title =@"Tech Quiz";
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:18]}];
     self.view.backgroundColor=[UIColor lightGrayColor];
@@ -69,6 +69,194 @@
 
     [self loadIntialView];
   
+}
+
+
+
+-(void)loadIntialView{
+    tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
+    navBarHeight    = self.navigationController.navigationBar.frame.size.height;
+    statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    screenWidth     = self.view.frame.size.width;
+    screenHeight    = self.view.frame.size.height-(navBarHeight+tabBarHeight+statusBarHeight);
+    baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
+    baseView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:baseView];
+    
+    topMenuView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 50)];
+    topMenuView.backgroundColor = [UIColor whiteColor];
+    [baseView addSubview:topMenuView];
+    
+    
+    tableSelected=0;
+    UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
+    [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
+    [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+    [topMenuView addSubview:filterBtn];
+    
+    
+    
+    UIButton *favoriteBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
+    [favoriteBtn setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
+    [favoriteBtn addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
+    [topMenuView addSubview:favoriteBtn];
+    
+    
+    UILabel *lblQuestion =[[UILabel alloc]initWithFrame:CGRectMake(20,10, 30, 30)];
+    lblQuestion.text= @"Q:";
+    lblQuestion.font=[UIFont fontWithName:@"Helvetica" size:20];
+    [topMenuView addSubview:lblQuestion];
+    
+    previousbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [previousbutton addTarget:self
+                       action:@selector(previousAction)
+             forControlEvents:UIControlEventTouchUpInside];
+    previousbutton.titleLabel.font=[UIFont fontWithName:@"Helvetica" size:25];
+    [previousbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [previousbutton setTitle:@" < " forState:UIControlStateNormal];
+    previousbutton.frame = CGRectMake(45.0, 10, 30.0, 30.0);
+    [topMenuView addSubview:previousbutton];
+    
+    UIButton *nextbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextbutton addTarget:self
+                   action:@selector(nextAction)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    nextbutton.titleLabel.font=[UIFont fontWithName:@"Helvetica" size:25];
+    [nextbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [nextbutton setTitle:@" > " forState:UIControlStateNormal];
+    nextbutton.frame = CGRectMake(screenWidth-170, 10,30,30);
+    [topMenuView addSubview:nextbutton];
+    
+    
+    questionNoTF  = [[UITextField alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+30,10,40,30)];
+    questionNoTF.textColor = [UIColor blackColor];
+    questionNoTF.delegate = self;
+    questionNoTF.keyboardType =UIKeyboardTypeNumberPad;
+    [questionNoTF setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
+    questionNoTF.text=@"1";
+    questionNoTF.placeholder = @"1";
+    [questionNoTF addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
+    NSAttributedString *attributedLeftText = [[NSAttributedString alloc] initWithString:questionNoTF.text attributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),NSUnderlineColorAttributeName:[UIColor clearColor]}];
+    questionNoTF.attributedText = [attributedLeftText copy];
+    questionNoTF.textAlignment=NSTextAlignmentLeft;
+    [topMenuView addSubview:questionNoTF];
+    
+    float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size
+                                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes:@{ NSFontAttributeName:questionNoTF.font }
+                                                           context:nil].size.width;
+    
+    NSLog(@"the width of yourLabel is %f", leftLabelWidth);
+    
+    totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
+    totalQuestionNolbl.textColor = [UIColor blackColor];
+    [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
+    totalQuestionNolbl.text=[NSString stringWithFormat:@"/%@",@"10"];
+    totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
+    [topMenuView addSubview:totalQuestionNolbl];
+    
+    
+    [self loadList];
+    
+    homeScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,topMenuView.frame.size.height,screenWidth,screenHeight-50)];
+    homeScrollView.showsVerticalScrollIndicator=YES;
+    homeScrollView.scrollEnabled=YES;
+    homeScrollView.userInteractionEnabled=YES;
+    homeScrollView.contentSize = CGSizeMake(screenWidth,screenHeight+80);
+    homeScrollView.bounces = false;
+    homeScrollView.backgroundColor=[UIColor lightGrayColor];
+    [baseView addSubview:homeScrollView];
+    
+    
+    NSString * questionNumber =@"1 ";
+    NSString * questiontext =@"Who invented C programming Who invented C ";
+    NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
+    questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
+    questiontextlbl.text=questions;
+    questiontextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+    CGSize maximumSize = CGSizeMake(questiontextlbl.frame.size.width, MAXFLOAT);
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:questiontextlbl.text];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [attributedString setAttributes:@{NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, attributedString.length)];
+    [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:16]} range:NSMakeRange(0, attributedString.length)];
+    CGSize expectedSize = [attributedString boundingRectWithSize:maximumSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    questiontextlbl.numberOfLines =(expectedSize.height/20)+1;
+    NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
+    questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
+    questiontextlbl.textAlignment=NSTextAlignmentLeft;
+    // questiontextlbl.backgroundColor=[UIColor whiteColor];
+    // questiontextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:20];
+    [questiontextlbl setTextColor:[UIColor blackColor]];
+    [homeScrollView addSubview:questiontextlbl];
+    
+    UIView * answerOptionsView=[[UIView alloc]initWithFrame:CGRectMake(10,questiontextlbl.frame.size.height+20,screenWidth-20 ,200)];
+    // answerOptionsView.backgroundColor=[UIColor greenColor];
+    [homeScrollView addSubview:answerOptionsView];
+    
+    tableViews = [self makeTableView];
+    [tableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"newFriendCell"];
+    [answerOptionsView addSubview:tableViews];
+    
+    
+    selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
+    selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
+    [baseView addSubview: selectCategoryTF];
+    
+    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
+    answerButton.backgroundColor=[UIColor redColor];
+    answerButton.hidden=TRUE;
+    answerButton.layer.cornerRadius=10;
+    answerButton.clipsToBounds=YES;
+    [answerButton setBackgroundColor:[UIColor whiteColor]];
+    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
+    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
+    [homeScrollView addSubview:answerButton];
+    
+    
+    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
+    correctAnswerView.backgroundColor=[UIColor whiteColor];
+    correctAnswerView.layer.cornerRadius=10;
+    correctAnswerView.hidden=TRUE;
+    correctAnswerView.clipsToBounds=YES;
+    [homeScrollView addSubview:correctAnswerView];
+    
+    
+    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+    NSString * correctAnswerStr =@"Dennis Ritchie";
+    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+    
+    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+    answertextlbl.text=answertext;
+    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+                          ];
+    answertextlbl.numberOfLines=3;
+    answertextlbl.textAlignment=NSTextAlignmentLeft;
+    
+    [correctAnswerView addSubview:answertextlbl];
+    
+    kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    kbHideButton.backgroundColor = [UIColor clearColor];
+    kbHideButton.hidden=true;
+    [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [baseView addSubview:kbHideButton];
+    
+    
+    [baseView bringSubviewToFront:kbHideButton];
+    
+    UISwipeGestureRecognizer * swipeleft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeleft:)];
+    swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [baseView addGestureRecognizer:swipeleft];
+    
+    
+    UISwipeGestureRecognizer * swiperight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
+    swiperight.direction=UISwipeGestureRecognizerDirectionRight;
+    [baseView addGestureRecognizer:swiperight];
+    
+    
 }
 
 
@@ -178,182 +366,7 @@
 -(void) previousAction{}
 -(void) nextAction{}
 
--(void)loadIntialView{
-    tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
-    navBarHeight    = self.navigationController.navigationBar.frame.size.height;
-    statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    screenWidth     = self.view.frame.size.width;
-    screenHeight    = self.view.frame.size.height-(navBarHeight+tabBarHeight+statusBarHeight);
-    baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
-    baseView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:baseView];
-    
-    topMenuView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 50)];
-    topMenuView.backgroundColor = [UIColor whiteColor];
-    [baseView addSubview:topMenuView];
-    
-    
-    tableSelected=0;
-    UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
-    [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
-    [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
-    [topMenuView addSubview:filterBtn];
-    
 
-    
-    UIButton *favoriteBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
-    [topMenuView addSubview:favoriteBtn];
-    
-    
-    UILabel *lblQuestion =[[UILabel alloc]initWithFrame:CGRectMake(20,10, 30, 30)];
-    lblQuestion.text= @"Q:";
-    lblQuestion.font=[UIFont fontWithName:@"Helvetica" size:20];
-    [topMenuView addSubview:lblQuestion];
-    
-    previousbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [previousbutton addTarget:self
-                       action:@selector(previousAction)
-             forControlEvents:UIControlEventTouchUpInside];
-    previousbutton.titleLabel.font=[UIFont fontWithName:@"Helvetica" size:25];
-    [previousbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [previousbutton setTitle:@" < " forState:UIControlStateNormal];
-    previousbutton.frame = CGRectMake(45.0, 10, 30.0, 30.0);
-    [topMenuView addSubview:previousbutton];
-    
-    UIButton *nextbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nextbutton addTarget:self
-                   action:@selector(nextAction)
-         forControlEvents:UIControlEventTouchUpInside];
-    
-    nextbutton.titleLabel.font=[UIFont fontWithName:@"Helvetica" size:25];
-    [nextbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [nextbutton setTitle:@" > " forState:UIControlStateNormal];
-    nextbutton.frame = CGRectMake(screenWidth-170, 10,30,30);
-    [topMenuView addSubview:nextbutton];
-    
-    
-    questionNoTF  = [[UITextField alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+30,10,40,30)];
-    questionNoTF.textColor = [UIColor blackColor];
-    questionNoTF.delegate = self;
-    questionNoTF.keyboardType =UIKeyboardTypeNumberPad;
-    [questionNoTF setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-    questionNoTF.text=@"1";
-    questionNoTF.placeholder = @"1";
-    [questionNoTF addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
-    NSAttributedString *attributedLeftText = [[NSAttributedString alloc] initWithString:questionNoTF.text attributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),NSUnderlineColorAttributeName:[UIColor clearColor]}];
-    questionNoTF.attributedText = [attributedLeftText copy];
-    questionNoTF.textAlignment=NSTextAlignmentLeft;
-    [topMenuView addSubview:questionNoTF];
-    
-    float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:@{ NSFontAttributeName:questionNoTF.font }
-                                                           context:nil].size.width;
-    
-    NSLog(@"the width of yourLabel is %f", leftLabelWidth);
-    
-    totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
-    totalQuestionNolbl.textColor = [UIColor blackColor];
-    [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-    totalQuestionNolbl.text=[NSString stringWithFormat:@"/%@",@"10"];
-    totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
-    [topMenuView addSubview:totalQuestionNolbl];
-    
-    
-    [self loadList];
-    
-    homeScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,topMenuView.frame.size.height,screenWidth,screenHeight-50)];
-    homeScrollView.showsVerticalScrollIndicator=YES;
-    homeScrollView.scrollEnabled=YES;
-    homeScrollView.userInteractionEnabled=YES;
-    homeScrollView.contentSize = CGSizeMake(screenWidth,screenHeight+80);
-    homeScrollView.bounces = false;
-    homeScrollView.backgroundColor=[UIColor lightGrayColor];
-    [baseView addSubview:homeScrollView];
-
-
-    NSString * questionNumber =@"1 ";
-    NSString * questiontext =@"Who invented C programming Who invented C ";
-    NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
-    questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
-    questiontextlbl.text=questions;
-    questiontextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-    CGSize maximumSize = CGSizeMake(questiontextlbl.frame.size.width, MAXFLOAT);
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:questiontextlbl.text];
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
-    [attributedString setAttributes:@{NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, attributedString.length)];
-    [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:16]} range:NSMakeRange(0, attributedString.length)];
-    CGSize expectedSize = [attributedString boundingRectWithSize:maximumSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-    questiontextlbl.numberOfLines =(expectedSize.height/20)+1;
-    NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
-    questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
-    questiontextlbl.textAlignment=NSTextAlignmentLeft;
-   // questiontextlbl.backgroundColor=[UIColor whiteColor];
-   // questiontextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:20];
-    [questiontextlbl setTextColor:[UIColor blackColor]];
-     [homeScrollView addSubview:questiontextlbl];
-    
-    UIView * answerOptionsView=[[UIView alloc]initWithFrame:CGRectMake(10,questiontextlbl.frame.size.height+20,screenWidth-20 ,200)];
-   // answerOptionsView.backgroundColor=[UIColor greenColor];
-      [homeScrollView addSubview:answerOptionsView];
-    
-    tableViews = [self makeTableView];
-    [tableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"newFriendCell"];
-   [answerOptionsView addSubview:tableViews];
-    
-    
-    selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
-    selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
-    [baseView addSubview: selectCategoryTF];
-    
-    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
-    answerButton.backgroundColor=[UIColor redColor];
-    answerButton.hidden=TRUE;
-    answerButton.layer.cornerRadius=10;
-    answerButton.clipsToBounds=YES;
-    [answerButton setBackgroundColor:[UIColor whiteColor]];
-    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
-    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
-    [homeScrollView addSubview:answerButton];
-    
-    
-    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
-    correctAnswerView.backgroundColor=[UIColor whiteColor];
-    correctAnswerView.layer.cornerRadius=10;
-    correctAnswerView.hidden=TRUE;
-    correctAnswerView.clipsToBounds=YES;
-    [homeScrollView addSubview:correctAnswerView];
-    
-    
-    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-    NSString * correctAnswerStr =@"Dennis Ritchie";
-    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
-    
-    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
-    answertextlbl.text=answertext;
-    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
-                          ];
-    answertextlbl.numberOfLines=3;
-    answertextlbl.textAlignment=NSTextAlignmentLeft;
-  
-    [correctAnswerView addSubview:answertextlbl];
-    
-    kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    kbHideButton.backgroundColor = [UIColor clearColor];
-    kbHideButton.hidden=true;
-    [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [baseView addSubview:kbHideButton];
-
-    
-    [baseView bringSubviewToFront:kbHideButton];
-   
-    
-}
 
 
 -(void) answerAction{
@@ -362,6 +375,18 @@
     [homeScrollView setContentOffset:bottomOffset animated:YES];
     correctAnswerView.hidden=false;
     
+}
+
+
+
+-(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+    NSLog(@"Left side");
+}
+
+-(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+    NSLog(@"Right side");
 }
 
 #pragma mark -Table View
@@ -411,19 +436,9 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-    if (indexPath.row==0) {
+  
         lblTemp.text=@"Friends";
-    }
-    else if (indexPath.row==1){
-        lblTemp.text=@"Friend 1";
-    }
-    else if (indexPath.row==2) {
-        lblTemp.text=@"Friends 2";
-    }
-    else {
-        lblTemp.text=@"Friend 3";
-    }
-    
+  
     [cell.contentView addSubview:lblTemp];
     
     cell.imageView .frame= CGRectMake(17,19,15,15);
