@@ -25,6 +25,7 @@
     UILabel *questionNolbl;
     UILabel *questiontextlbl;
     UILabel *answer;
+    UILabel *answerIndicatorLabel;
     
     UIButton *previousbutton;
     UIButton *kbHideButton;
@@ -51,6 +52,7 @@
     
     NSInteger  questionNumberCount;
     NSMutableArray *optionsAry;
+    
     
     
 }
@@ -452,7 +454,7 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-    NSLog(@"%@ counts",[optionsAry objectAtIndex:indexPath.row]);
+  //  NSLog(@"%@ counts",[optionsAry objectAtIndex:indexPath.row]);
     lblTemp.text=[optionsAry objectAtIndex:indexPath.row];
     [cell.contentView addSubview:lblTemp];
     
@@ -487,8 +489,10 @@
 {
     tableSelected=1;
     selectedIndexPath=indexPath.row;
-    answerButton.hidden=false;
-    
+   // answerButton.hidden=false;
+    answerIndicatorLabel.hidden=false;
+    NSString *correctAnswer=[optionsAry objectAtIndex:indexPath.row];
+    NSLog(@"selected correct %@",correctAnswer);
     [tableView reloadData];
     
     
@@ -536,6 +540,7 @@
             [newQuestionKit setValue:[option2Array objectAtIndex:i] forKey:@"option2"];
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
+            [newQuestionKit setValue:[correctAnswerArray objectAtIndex:i] forKey:@"correctAnswer"];
             
         }
     }
@@ -571,6 +576,9 @@
         _option2 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option2"];
         _option3 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option3"];
         _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
+        _correctAnswer=[[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correctAnswer"];
+        NSLog(@"Correct %@",_correctAnswer);
+    
         if (optionsAry.count >0)
         {
             [optionsAry removeAllObjects];
