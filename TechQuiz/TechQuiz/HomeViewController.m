@@ -41,6 +41,13 @@
      int tableSelected;
      int selectedIndexPath;
     
+    NSArray *QuestionNoArray;
+    NSArray *QuestionArray;
+    NSArray *option1Array;
+    NSArray *option2Array;
+    NSArray *option3Array;
+    NSArray *option4Array;
+    
 }
 
 @end
@@ -68,7 +75,8 @@
     
 
     [self loadIntialView];
-  
+    [self populateArray];
+   
 }
 
 
@@ -478,5 +486,87 @@
     
   
 }
+
+#pragma mark - Core Data support utility
+-(NSManagedObjectContext *)managedObjectContext {
+    
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication ] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]){
+        context = [delegate managedObjectContext];
+        
+    }
+    
+    return context;
+}
+
+- (void) populateArray {
+    QuestionNoArray = [@[@"1",@"2",@"3",@"4",@"5"]mutableCopy];
+    QuestionArray = [@[@ "Question1 ?",@"Question2 ?",@"Question3 ?",@"Question4 ?",@"Question5 ?"] mutableCopy];
+    option1Array = [@[@ "Option1a ?",@"Option1b ?",@"Option1c ?",@"Option1d ?",@"Option1e ?"]
+        mutableCopy];
+    option2Array = [@[@ "Option2a ?",@"Option2b ?",@"Option2c ?",@"Option2d ?",@"Option2e ?"] mutableCopy];
+    option3Array = [@[@ "Option3a ?",@"Option3b ?",@"Option3c ?",@"Option3d ?",@"Option3e ?"] mutableCopy];
+    option4Array = [@[@ "Option4a ?",@"Option4b ?",@"Option4c ?",@"Option4d ?",@"Option4e ?"] mutableCopy];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSInteger count = [context countForFetchRequest:request error:&error];
+   
+    //create a new managed object and save to core data
+    NSLog(@"count =%d",count);
+    if (count==0) {
+        
+        for (int i=0; i<QuestionArray.count; i++) {
+            NSManagedObject * newQuestionKit = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionsKit" inManagedObjectContext:context];
+            [newQuestionKit setValue:[QuestionNoArray objectAtIndex:i] forKey:@"questionNo"];
+            [newQuestionKit setValue:[QuestionArray objectAtIndex:i] forKey:@"question"];
+            [newQuestionKit setValue:[option1Array objectAtIndex:i] forKey:@"option1"];
+            [newQuestionKit setValue:[option2Array objectAtIndex:i] forKey:@"option2"];
+            [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
+            [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
+           
+        }
+    }
+    //save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+    
+}
+
+- (void) fetchUsingCoreData
+{
+    NSLog(@"Fetch using core data entered");
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit"
+                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        // Handle the error.
+        NSLog(@"Fetched objects = nil");
+    }
+    else
+    {
+        _questionNo = [[fetchedObjects objectAtIndex:0] valueForKey:@"questionNo"];
+        _question = [[fetchedObjects objectAtIndex:0] valueForKey:@"question"];
+        _option1 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option1"];
+        _option2 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option2"];
+        _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
+        _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
+        
+    }
+    NSLog(@"Fetch using core data exited");
+}
+
 
 @end

@@ -219,12 +219,7 @@
 
 
 -(void) loginAction{
-//    NSString *strUserName=@"a";
-//    NSString *strPassword=@"a";
-//    passwordTF.text=@"a";
-//    userNameTF.text=@"a";
-//    NSLog(@"pass %@",passwordTF.text);
-//     NSLog(@"pass %@",userNameTF.text);
+
     [self fetchLoginDetails];
     if (userNameTF.text.length==0)
     {
