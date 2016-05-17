@@ -67,7 +67,7 @@
 #pragma  mark - Custom Code
 
 - (void) insertLoginDetais {
-    NSLog(@"Into insertLoginDetails");
+    //NSLog(@"Into insertLoginDetails");
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -256,7 +256,7 @@
 - (void) fetchLoginDetails
 {
     
-    NSLog(@"fetchLoginDetails");
+    //NSLog(@"fetchLoginDetails");
     NSManagedObjectContext *context = [self managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -274,8 +274,8 @@
     {
         _userName = [[fetchedObjects objectAtIndex:0] valueForKey:@"userName"];
         _password = [[fetchedObjects objectAtIndex:0] valueForKey:@"password"];
-        NSLog(@"_userName = %@",_userName);
-        NSLog(@"_password = %@",_password);
+       // NSLog(@"_userName = %@",_userName);
+        //NSLog(@"_password = %@",_password);
     }
 }
 

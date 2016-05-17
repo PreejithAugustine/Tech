@@ -41,12 +41,13 @@
     int tableSelected;
     int selectedIndexPath;
     
-    NSArray *QuestionNoArray;
-    NSArray *QuestionArray;
+    NSArray *questionNoArray;
+    NSArray *questionArray;
     NSArray *option1Array;
     NSArray *option2Array;
     NSArray *option3Array;
     NSArray *option4Array;
+    NSArray *correctAnswerArray;
     
     NSInteger  questionNumberCount;
     NSMutableArray *optionsAry;
@@ -64,6 +65,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self populateArray];
+     
     [self.navigationItem setTitle:@"Thech -Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
@@ -159,7 +161,7 @@
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[QuestionNoArray count]];
+    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[questionNoArray count]];
     totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
     [topMenuView addSubview:totalQuestionNolbl];
     
@@ -190,7 +192,7 @@
     [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:16]} range:NSMakeRange(0, attributedString.length)];
     CGSize expectedSize = [attributedString boundingRectWithSize:maximumSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     questiontextlbl.numberOfLines =(expectedSize.height/20)+1;
-    NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
+   // NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
     questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
     questiontextlbl.textAlignment=NSTextAlignmentLeft;
     // questiontextlbl.backgroundColor=[UIColor whiteColor];
@@ -211,25 +213,34 @@
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
     
-    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
-    answerButton.backgroundColor=[UIColor redColor];
-    answerButton.hidden=TRUE;
-    answerButton.layer.cornerRadius=10;
-    answerButton.clipsToBounds=YES;
-    [answerButton setBackgroundColor:[UIColor whiteColor]];
-    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
-    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
-    [homeScrollView addSubview:answerButton];
+//    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
+//    answerButton.backgroundColor=[UIColor redColor];
+//    answerButton.hidden=TRUE;
+//    answerButton.layer.cornerRadius=10;
+//    answerButton.clipsToBounds=YES;
+//    [answerButton setBackgroundColor:[UIColor whiteColor]];
+//    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
+//    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
+//    [homeScrollView addSubview:answerButton];
     
     
-    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
-    correctAnswerView.backgroundColor=[UIColor whiteColor];
-    correctAnswerView.layer.cornerRadius=10;
-    correctAnswerView.hidden=TRUE;
-    correctAnswerView.clipsToBounds=YES;
-    [homeScrollView addSubview:correctAnswerView];
     
+    
+//    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
+//    correctAnswerView.backgroundColor=[UIColor whiteColor];
+//    correctAnswerView.layer.cornerRadius=10;
+//    correctAnswerView.hidden=TRUE;
+//    correctAnswerView.clipsToBounds=YES;
+//    [homeScrollView addSubview:correctAnswerView];
+    
+    answerIndicatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
+    answerIndicatorLabel.backgroundColor = [UIColor redColor];
+    answerIndicatorLabel.hidden = TRUE;
+    answerIndicatorLabel.layer.cornerRadius = 10;
+    answerIndicatorLabel.clipsToBounds = YES;
+    [answerIndicatorLabel setBackgroundColor:[UIColor whiteColor]];
+    [homeScrollView addSubview:answerIndicatorLabel];
     
     NSString * correctAnswerIndex =@"Correct Answer for the above is ";
     NSString * correctAnswerStr =@"Dennis Ritchie";
@@ -497,14 +508,14 @@
 }
 
 - (void) populateArray {
-    QuestionNoArray = [@[@"1",@"2",@"3",@"4",@"5"]mutableCopy];
-    QuestionArray = [@[@ "Question1 ?",@"Question2 ?",@"Question3 ?",@"Question4 ?",@"Question5 ?"] mutableCopy];
+    questionNoArray = [@[@"1",@"2",@"3",@"4",@"5"] mutableCopy];
+    questionArray = [@[@ "Question1 ?",@"Question2 ?",@"Question3 ?",@"Question4 ?",@"Question5 ?"] mutableCopy];
     option1Array = [@[@ "Option1a ?",@"Option1b ?",@"Option1c ?",@"Option1d ?",@"Option1e ?"]
                     mutableCopy];
     option2Array = [@[@ "Option2a ?",@"Option2b ?",@"Option2c ?",@"Option2d ?",@"Option2e ?"] mutableCopy];
     option3Array = [@[@ "Option3a ?",@"Option3b ?",@"Option3c ?",@"Option3d ?",@"Option3e ?"] mutableCopy];
     option4Array = [@[@ "Option4a ?",@"Option4b ?",@"Option4c ?",@"Option4d ?",@"Option4e ?"] mutableCopy];
-    
+    correctAnswerArray = [@[@ "Option2a ?",@"Option4b ?",@"Option3c ?",@"Option1d ?",@"Option2e ?"] mutableCopy];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
@@ -517,10 +528,10 @@
     NSLog(@"count =%d",count);
     if (count==0) {
         
-        for (int i=0; i<QuestionArray.count; i++) {
+        for (int i=0; i<questionArray.count; i++) {
             NSManagedObject * newQuestionKit = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionsKit" inManagedObjectContext:context];
-            [newQuestionKit setValue:[QuestionNoArray objectAtIndex:i] forKey:@"questionNo"];
-            [newQuestionKit setValue:[QuestionArray objectAtIndex:i] forKey:@"question"];
+            [newQuestionKit setValue:[questionNoArray objectAtIndex:i] forKey:@"questionNo"];
+            [newQuestionKit setValue:[questionArray objectAtIndex:i] forKey:@"question"];
             [newQuestionKit setValue:[option1Array objectAtIndex:i] forKey:@"option1"];
             [newQuestionKit setValue:[option2Array objectAtIndex:i] forKey:@"option2"];
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
@@ -567,6 +578,12 @@
         optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
         
     }
+    NSLog(@"_questionNo =%@",_questionNo);
+//    NSLog(@"_question =%@",_question);
+//    NSLog(@"_option1 =%@",_option1);
+//    NSLog(@"_option2 =%@",_option2);
+//    NSLog(@"_option3 =%@",_option3);
+//    NSLog(@"_option4 =%@",_option4);
     NSLog(@"Fetch using core data exited");
 }
 
