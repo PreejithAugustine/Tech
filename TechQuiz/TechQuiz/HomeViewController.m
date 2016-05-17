@@ -29,6 +29,7 @@
     UIButton *previousbutton;
     UIButton *kbHideButton;
     UIButton * answerButton;
+    UILabel *answerIndicatorLabel;
     
     DropdownList *list;
     BOOL listFlag;
@@ -487,7 +488,24 @@
 {
     tableSelected=1;
     selectedIndexPath=indexPath.row;
-    answerButton.hidden=false;
+    //answerButton.hidden=false;
+    answerIndicatorLabel.hidden = false;
+    
+    NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
+    NSLog(@"option selected is = %@",selectedAnswer);
+     NSLog(@"_correctAnswer = %@",_correctAnswer);
+    
+    if ([selectedAnswer isEqualToString:_correctAnswer])
+    {
+        answerIndicatorLabel.text = @"Correct Answer";
+        answerIndicatorLabel.backgroundColor = [UIColor greenColor];
+    }
+    else
+    {
+        answerIndicatorLabel.text = @"Incorrect Answer";
+        answerIndicatorLabel.backgroundColor = [UIColor redColor];
+
+    }
     
     [tableView reloadData];
     
@@ -536,7 +554,7 @@
             [newQuestionKit setValue:[option2Array objectAtIndex:i] forKey:@"option2"];
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
-            
+            [newQuestionKit setValue:[correctAnswerArray objectAtIndex:i] forKey:@"correctAnswer"];
         }
     }
     //save the object to persistent store
@@ -571,6 +589,8 @@
         _option2 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option2"];
         _option3 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option3"];
         _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
+        _correctAnswer = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correctAnswer"];
+        NSLog(@"_correctAnswer =%@",_correctAnswer);
         if (optionsAry.count >0)
         {
             [optionsAry removeAllObjects];
