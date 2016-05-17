@@ -20,26 +20,26 @@
     UIView *selectCategoryTF;
     UIView *correctAnswerView;
     
-     UITextField *questionNoTF;
-     UILabel *totalQuestionNolbl;
-     UILabel *questionNolbl;
-     UILabel *questiontextlbl;
-     UILabel *answer;
+    UITextField *questionNoTF;
+    UILabel *totalQuestionNolbl;
+    UILabel *questionNolbl;
+    UILabel *questiontextlbl;
+    UILabel *answer;
     
-     UIButton *previousbutton;
-     UIButton *kbHideButton;
-     UIButton * answerButton;
+    UIButton *previousbutton;
+    UIButton *kbHideButton;
+    UIButton * answerButton;
     
-     DropdownList *list;
-     BOOL listFlag;
- 
-     UIScrollView*homeScrollView;
-
-     NSArray *tableData;
-     UITableView *tableViews;
+    DropdownList *list;
+    BOOL listFlag;
     
-     int tableSelected;
-     int selectedIndexPath;
+    UIScrollView*homeScrollView;
+    
+    NSArray *tableData;
+    UITableView *tableViews;
+    
+    int tableSelected;
+    int selectedIndexPath;
     
     NSArray *QuestionNoArray;
     NSArray *QuestionArray;
@@ -47,6 +47,10 @@
     NSArray *option2Array;
     NSArray *option3Array;
     NSArray *option4Array;
+    
+    NSInteger  questionNumberCount;
+    NSMutableArray *optionsAry;
+    
     
 }
 
@@ -73,10 +77,7 @@
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
-
-    [self loadIntialView];
-    
-   
+        [self loadIntialView];
 }
 
 
@@ -87,6 +88,10 @@
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     screenWidth     = self.view.frame.size.width;
     screenHeight    = self.view.frame.size.height-(navBarHeight+tabBarHeight+statusBarHeight);
+    
+    questionNumberCount=0;
+    tableSelected=0;
+    
     baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
     baseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:baseView];
@@ -95,20 +100,16 @@
     topMenuView.backgroundColor = [UIColor whiteColor];
     [baseView addSubview:topMenuView];
     
-    
-    tableSelected=0;
+   
     UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
     [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
     [topMenuView addSubview:filterBtn];
-    
-    
-    
+
     UIButton *favoriteBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
     [favoriteBtn setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
     [favoriteBtn addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
     [topMenuView addSubview:favoriteBtn];
-    
     
     UILabel *lblQuestion =[[UILabel alloc]initWithFrame:CGRectMake(20,10, 30, 30)];
     lblQuestion.text= @"Q:";
@@ -136,7 +137,6 @@
     nextbutton.frame = CGRectMake(screenWidth-170, 10,30,30);
     [topMenuView addSubview:nextbutton];
     
-    
     questionNoTF  = [[UITextField alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+30,10,40,30)];
     questionNoTF.textColor = [UIColor blackColor];
     questionNoTF.delegate = self;
@@ -156,16 +156,12 @@
                                                            context:nil].size.width;
     
     NSLog(@"the width of yourLabel is %f", leftLabelWidth);
-    
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
     totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[QuestionNoArray count]];
     totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
     [topMenuView addSubview:totalQuestionNolbl];
-    
-    
-    [self loadList];
     
     homeScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,topMenuView.frame.size.height,screenWidth,screenHeight-50)];
     homeScrollView.showsVerticalScrollIndicator=YES;
@@ -176,11 +172,13 @@
     homeScrollView.backgroundColor=[UIColor lightGrayColor];
     [baseView addSubview:homeScrollView];
     
-
-  [self fetchUsingCoreData];
+    
+    [self fetchUsingCoreData:questionNumberCount];
     NSString * questionNumber =_questionNo;
     NSString * questiontext = _question;
-    NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
+   
+    NSString *questions = [NSString stringWithFormat:@"%@, %@", _questionNo, _question];
+     questiontextlbl.text=questions;
     questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
     questiontextlbl.text=questions;
     questiontextlbl.lineBreakMode = NSLineBreakByWordWrapping;
@@ -284,12 +282,12 @@
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
     }
-
+    
 }
 
 
 -(void)loadList {
-     list = [[DropdownList alloc] init];
+    list = [[DropdownList alloc] init];
     CGRect frame = selectCategoryTF.frame;
     list.parentWidth = selectCategoryTF.frame.size.width;
     list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 0);
@@ -314,29 +312,6 @@
 
 - (void)showList {
     [self dismissKeyboard];
-    // kbHideButton.hidden=false;
-//    if (listFlag) {
-//        kbHideButton.hidden=false;
-//        CGRect frame = selectCategoryTF.frame;
-//        [UIView animateWithDuration:0.2 animations:^{
-//            list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 120);
-//            [list.dropdownTableView flashScrollIndicators];
-//                 kbHideButton.hidden=false;
-//        }completion:^(BOOL finished) {
-//            listFlag = false;
-//        }];
-//    }else {
-//        
-//        [UIView animateWithDuration:0.2 animations:^{
-//            list.view.frame = CGRectMake(list.view.frame.origin.x, list.view.frame.origin.y, list.view.frame.size.width, 0);
-//                   kbHideButton.hidden=TRUE;
-//            
-//        }completion:^(BOOL finished) {
-//            listFlag = true;
-//        }];
-//        
-//        
-//    }
     [UIView makeTableView];
     
 }
@@ -348,7 +323,7 @@
 - (void)dismissKeyboard {
     [questionNoTF resignFirstResponder];
     [homeScrollView setContentOffset:CGPointZero animated:YES];
-       kbHideButton.hidden=true;
+    kbHideButton.hidden=true;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -356,14 +331,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma  mark
 
@@ -372,14 +347,36 @@
 }
 
 -(void) howList{}
--(void) previousAction{}
--(void) nextAction{}
+-(void) previousAction{
+   
+   questionNumberCount=   questionNumberCount-1;
+   NSLog(@"countofQnext %d",questionNumberCount);
+   [self nextquestions];
 
 
+}
+-(void) nextAction{
+    
+     questionNumberCount=   questionNumberCount+1;
+     NSLog(@"countofQnext %d",questionNumberCount);
+    [self nextquestions];
+   
+}
 
+
+-(void)nextquestions{
+
+    [self fetchUsingCoreData:questionNumberCount];
+    NSString *questions = [NSString stringWithFormat:@"%@, %@", _questionNo, _question];
+    questiontextlbl.text=questions;
+    tableSelected=0;
+    answerButton.hidden=TRUE;
+    NSLog(@"options %@",optionsAry);
+    [tableViews reloadData];
+}
 
 -(void) answerAction{
-  //[homeScrollView setContentOffset:CGPointZero animated:YES];
+    //[homeScrollView setContentOffset:CGPointZero animated:YES];
     CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
     [homeScrollView setContentOffset:bottomOffset animated:YES];
     correctAnswerView.hidden=false;
@@ -391,17 +388,24 @@
 -(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
 {
     NSLog(@"Left side");
+    questionNumberCount=   questionNumberCount-1;
+    NSLog(@"countofQnext %d",questionNumberCount);
+    [self nextquestions];
+
 }
 
 -(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
 {
     NSLog(@"Right side");
+    questionNumberCount=   questionNumberCount+1;
+    NSLog(@"countofQnext %d",questionNumberCount);
+    [self nextquestions];
 }
 
 #pragma mark -Table View
 -(UITableView *)makeTableView
 {
-
+    
     CGRect tableFrame = CGRectMake(0, 0,screenWidth-20, 200);
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:tableFrame style:UITableViewStylePlain];
@@ -414,7 +418,7 @@
     tableView.userInteractionEnabled = YES;
     tableView.bounces = YES;
     tableView.layer.cornerRadius=5;
-
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
     tableView.dataSource = self;
     
@@ -427,43 +431,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"newFriendCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    //CGRect ImageViewFrame = CGRectMake(17,19,15,15);
     CGRect Label1Frame = CGRectMake(40,17,screenWidth-20,18);
     UILabel *lblTemp;
     UIImageView *imgView;
     lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
-    
-    
-    if (cell == nil)
-    {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    
 
     [lblTemp setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-    if (indexPath.row==0) {
-        lblTemp.text=_option1;
-    }
-    else if(indexPath.row==1) {
-        lblTemp.text=_option2;
-    }
-    else if(indexPath.row==2) {
-        lblTemp.text=_option3;
-    }
-    else {
-        lblTemp.text=_option4;
-    }
-    
-  
+    NSLog(@"%@ counts",[optionsAry objectAtIndex:indexPath.row]);
+    lblTemp.text=[optionsAry objectAtIndex:indexPath.row];
     [cell.contentView addSubview:lblTemp];
     
     cell.imageView .frame= CGRectMake(17,19,15,15);
     if(tableSelected==0){
-    [cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
+        [cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
     }
     else{
         if(indexPath.row==selectedIndexPath){
@@ -493,10 +478,10 @@
     tableSelected=1;
     selectedIndexPath=indexPath.row;
     answerButton.hidden=false;
-  
-     [tableView reloadData];
     
-  
+    [tableView reloadData];
+    
+    
 }
 
 #pragma mark - Core Data support utility
@@ -516,7 +501,7 @@
     QuestionNoArray = [@[@"1",@"2",@"3",@"4",@"5"]mutableCopy];
     QuestionArray = [@[@ "Question1 ?",@"Question2 ?",@"Question3 ?",@"Question4 ?",@"Question5 ?"] mutableCopy];
     option1Array = [@[@ "Option1a ?",@"Option1b ?",@"Option1c ?",@"Option1d ?",@"Option1e ?"]
-        mutableCopy];
+                    mutableCopy];
     option2Array = [@[@ "Option2a ?",@"Option2b ?",@"Option2c ?",@"Option2d ?",@"Option2e ?"] mutableCopy];
     option3Array = [@[@ "Option3a ?",@"Option3b ?",@"Option3c ?",@"Option3d ?",@"Option3e ?"] mutableCopy];
     option4Array = [@[@ "Option4a ?",@"Option4b ?",@"Option4c ?",@"Option4d ?",@"Option4e ?"] mutableCopy];
@@ -528,7 +513,7 @@
     
     NSError *error = nil;
     NSInteger count = [context countForFetchRequest:request error:&error];
-   
+    
     //create a new managed object and save to core data
     NSLog(@"count =%d",count);
     if (count==0) {
@@ -541,7 +526,7 @@
             [newQuestionKit setValue:[option2Array objectAtIndex:i] forKey:@"option2"];
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
-           
+            
         }
     }
     //save the object to persistent store
@@ -551,7 +536,7 @@
     
 }
 
-- (void) fetchUsingCoreData
+- (void) fetchUsingCoreData:(NSInteger) questionNumber
 {
     NSLog(@"Fetch using core data entered");
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -569,12 +554,18 @@
     }
     else
     {
-        _questionNo = [[fetchedObjects objectAtIndex:0] valueForKey:@"questionNo"];
-        _question = [[fetchedObjects objectAtIndex:0] valueForKey:@"question"];
-        _option1 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option1"];
-        _option2 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option2"];
-        _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
-        _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
+        
+        _questionNo = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"questionNo"];
+        _question = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"question"];
+        _option1 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option1"];
+        _option2 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option2"];
+        _option3 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option3"];
+        _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
+        if (optionsAry.count >0)
+        {
+            [optionsAry removeAllObjects];
+        }
+        optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
         
     }
     NSLog(@"Fetch using core data exited");
