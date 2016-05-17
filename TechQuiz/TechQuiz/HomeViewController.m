@@ -161,7 +161,7 @@
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-    totalQuestionNolbl.text=[NSString stringWithFormat:@"/%@",@"10"];
+    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[QuestionNoArray count]];
     totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
     [topMenuView addSubview:totalQuestionNolbl];
     
