@@ -494,11 +494,12 @@
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
     NSLog(@"option selected is = %@",selectedAnswer);
      NSLog(@"_correctAnswer = %@",_correctAnswer);
-    
+    answerIndicatorLabel.textAlignment = NSTextAlignmentCenter;
     if ([selectedAnswer isEqualToString:_correctAnswer])
     {
         answerIndicatorLabel.text = @"Correct Answer";
         answerIndicatorLabel.backgroundColor = [UIColor greenColor];
+        
     }
     else
     {
