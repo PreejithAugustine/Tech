@@ -18,5 +18,6 @@
 @property (strong,nonatomic) NSString *option2;
 @property (strong, nonatomic) NSString *option3;
 @property (strong,nonatomic) NSString *option4;
+@property (strong,nonatomic) NSString *correctAnswer;
 
 @end

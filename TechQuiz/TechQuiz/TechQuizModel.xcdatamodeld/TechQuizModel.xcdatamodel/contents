@@ -5,6 +5,7 @@
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QuestionsKit" syncable="YES">
+        <attribute name="correctAnswer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favouriteState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="option1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="option2" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,6 +17,6 @@
     </entity>
     <elements>
         <element name="LoginDetails" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="165"/>
+        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="180"/>
     </elements>
 </model>
