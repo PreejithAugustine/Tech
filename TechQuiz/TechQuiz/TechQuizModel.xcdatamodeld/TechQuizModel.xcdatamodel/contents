@@ -5,11 +5,17 @@
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QuestionsKit" syncable="YES">
-        <attribute name="attribute" optional="YES" syncable="YES"/>
+        <attribute name="favouriteState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="option1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="option2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="option3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="option4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="question" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="questionCategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="questionNo" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="LoginDetails" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="75"/>
+        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="165"/>
     </elements>
 </model>
