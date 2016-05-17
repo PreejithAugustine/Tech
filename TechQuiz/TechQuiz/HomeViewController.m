@@ -353,7 +353,6 @@
    NSLog(@"countofQnext %d",questionNumberCount);
    [self nextquestions];
 
-
 }
 -(void) nextAction{
     
