@@ -18,6 +18,7 @@
     UIView *baseView;
     UIView *topMenuView;
     UIView *selectCategoryTF;
+    UIView *correctAnswerView;
     
      UITextField *questionNoTF;
      UILabel *totalQuestionNolbl;
@@ -149,6 +150,7 @@
 
 - (void)dismissKeyboard {
     [questionNoTF resignFirstResponder];
+    [homeScrollView setContentOffset:CGPointZero animated:YES];
        kbHideButton.hidden=true;
 }
 - (void)didReceiveMemoryWarning {
@@ -167,6 +169,14 @@
 */
 
 #pragma  mark
+
+
+-(void)favoriteAction{
+}
+
+-(void) howList{}
+-(void) previousAction{}
+-(void) nextAction{}
 
 -(void)loadIntialView{
     tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
@@ -189,9 +199,7 @@
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
     [topMenuView addSubview:filterBtn];
     
-    
-    
-    
+
     
     UIButton *favoriteBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
     [favoriteBtn setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
@@ -253,11 +261,6 @@
     totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
     [topMenuView addSubview:totalQuestionNolbl];
     
-    kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    kbHideButton.backgroundColor = [UIColor clearColor];
-    kbHideButton.hidden=true;
-    [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [baseView addSubview:kbHideButton];
     
     [self loadList];
     
@@ -265,7 +268,7 @@
     homeScrollView.showsVerticalScrollIndicator=YES;
     homeScrollView.scrollEnabled=YES;
     homeScrollView.userInteractionEnabled=YES;
-    homeScrollView.contentSize = CGSizeMake(screenWidth,screenHeight+150);
+    homeScrollView.contentSize = CGSizeMake(screenWidth,screenHeight+80);
     homeScrollView.bounces = false;
     homeScrollView.backgroundColor=[UIColor lightGrayColor];
     [baseView addSubview:homeScrollView];
@@ -317,6 +320,39 @@
     [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
     [homeScrollView addSubview:answerButton];
     
+    
+    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
+    correctAnswerView.backgroundColor=[UIColor whiteColor];
+    correctAnswerView.layer.cornerRadius=10;
+    correctAnswerView.hidden=TRUE;
+    correctAnswerView.clipsToBounds=YES;
+    [homeScrollView addSubview:correctAnswerView];
+    
+    
+    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+    NSString * correctAnswerStr =@"Dennis Ritchie";
+    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+    
+    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+    answertextlbl.text=answertext;
+    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+                          ];
+    answertextlbl.numberOfLines=3;
+    answertextlbl.textAlignment=NSTextAlignmentLeft;
+  
+    [correctAnswerView addSubview:answertextlbl];
+    
+    kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    kbHideButton.backgroundColor = [UIColor clearColor];
+    kbHideButton.hidden=true;
+    [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [baseView addSubview:kbHideButton];
+
+    
+    [baseView bringSubviewToFront:kbHideButton];
+   
+    
 }
 
 
@@ -324,6 +360,8 @@
   //[homeScrollView setContentOffset:CGPointZero animated:YES];
     CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
     [homeScrollView setContentOffset:bottomOffset animated:YES];
+    correctAnswerView.hidden=false;
+    
 }
 
 #pragma mark -Table View
@@ -373,7 +411,19 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-    lblTemp.text=@"Friends";
+    if (indexPath.row==0) {
+        lblTemp.text=@"Friends";
+    }
+    else if (indexPath.row==1){
+        lblTemp.text=@"Friend 1";
+    }
+    else if (indexPath.row==2) {
+        lblTemp.text=@"Friends 2";
+    }
+    else {
+        lblTemp.text=@"Friend 3";
+    }
+    
     [cell.contentView addSubview:lblTemp];
     
     cell.imageView .frame= CGRectMake(17,19,15,15);
