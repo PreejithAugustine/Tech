@@ -30,6 +30,7 @@
     UIButton *previousbutton;
     UIButton *kbHideButton;
     UIButton * answerButton;
+    UILabel *answerIndicatorLabel;
     
     DropdownList *list;
     BOOL listFlag;
@@ -68,7 +69,7 @@
     [super viewDidLoad];
     [self populateArray];
      
-    [self.navigationItem setTitle:@"Thech -Quiz"];
+    [self.navigationItem setTitle:@"Tech-Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
     navBar.translucent      = false;
