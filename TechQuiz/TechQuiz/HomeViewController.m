@@ -397,7 +397,7 @@
 -(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
 {
     NSLog(@"Right side");
-    questionNumberCount=   questionNumberCount+1;
+    questionNumberCount=   questionNumberCount-1;
     NSLog(@"countofQnext %d",questionNumberCount);
     [self nextquestions];
 }
