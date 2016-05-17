@@ -56,9 +56,10 @@
    UILabel *aboutAppLbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,80)];
     aboutAppLbl.text=@"An app for understanding the technical knowledge on different topics .";
     aboutAppLbl.lineBreakMode = NSLineBreakByWordWrapping;
-    aboutAppLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+    aboutAppLbl.font = [UIFont fontWithName:@"HelveticaNeue-MediumItalic" size:18
                           ];
     aboutAppLbl.numberOfLines=3;
+    aboutAppLbl.textColor= [UIColor whiteColor];
     aboutAppLbl.textAlignment=NSTextAlignmentLeft;
     [baseView addSubview:aboutAppLbl];
     
@@ -78,9 +79,10 @@
     versionLbl.center = CGPointMake(screenWidth/2, screenHeight/2+70);
     versionLbl.text=answertext;
     versionLbl.lineBreakMode = NSLineBreakByWordWrapping;
-    versionLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+    versionLbl.font = [UIFont fontWithName:@"Helvetica-Bold" size:18
                         ];
     versionLbl.numberOfLines=1;
+    versionLbl.textColor= [UIColor whiteColor];
     versionLbl.textAlignment=NSTextAlignmentCenter;
     [baseView addSubview:versionLbl];
 

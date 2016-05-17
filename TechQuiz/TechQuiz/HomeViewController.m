@@ -59,7 +59,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     
+    [self populateArray];
     [self.navigationItem setTitle:@"Thech -Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
@@ -75,7 +75,7 @@
     
 
     [self loadIntialView];
-    [self populateArray];
+    
    
 }
 
@@ -160,7 +160,7 @@
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-    totalQuestionNolbl.text=[NSString stringWithFormat:@"/%@",@"10"];
+    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[QuestionNoArray count]];
     totalQuestionNolbl.textAlignment=NSTextAlignmentLeft;
     [topMenuView addSubview:totalQuestionNolbl];
     
@@ -176,9 +176,10 @@
     homeScrollView.backgroundColor=[UIColor lightGrayColor];
     [baseView addSubview:homeScrollView];
     
-    
-    NSString * questionNumber =@"1 ";
-    NSString * questiontext =@"Who invented C programming Who invented C ";
+
+  [self fetchUsingCoreData];
+    NSString * questionNumber =_questionNo;
+    NSString * questiontext = _question;
     NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
     questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
     questiontextlbl.text=questions;
@@ -444,8 +445,19 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-  
-        lblTemp.text=@"Friends";
+    if (indexPath.row==0) {
+        lblTemp.text=_option1;
+    }
+    else if(indexPath.row==1) {
+        lblTemp.text=_option2;
+    }
+    else if(indexPath.row==2) {
+        lblTemp.text=_option3;
+    }
+    else {
+        lblTemp.text=_option4;
+    }
+    
   
     [cell.contentView addSubview:lblTemp];
     
