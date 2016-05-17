@@ -59,6 +59,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self populateArray];
      
     [self.navigationItem setTitle:@"Thech -Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
@@ -75,7 +76,7 @@
     
 
     [self loadIntialView];
-    [self populateArray];
+    
    
 }
 
@@ -155,7 +156,7 @@
                                                         attributes:@{ NSFontAttributeName:questionNoTF.font }
                                                            context:nil].size.width;
     
-    NSLog(@"the width of yourLabel is %f", leftLabelWidth);
+    //NSLog(@"the width of yourLabel is %f", leftLabelWidth);
     
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
@@ -176,9 +177,11 @@
     homeScrollView.backgroundColor=[UIColor lightGrayColor];
     [baseView addSubview:homeScrollView];
     
-    
-    NSString * questionNumber =@"1 ";
-    NSString * questiontext =@"Who invented C programming Who invented C ";
+    [self fetchUsingCoreData];
+//    NSString * questionNumber =@"1 ";
+//    NSString * questiontext =@"Who invented C programming Who invented C ";
+    NSString * questionNumber = _questionNo;
+    NSString * questiontext =_question;
     NSString *questions = [NSString stringWithFormat:@"%@, %@", questionNumber, questiontext];
     questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
     questiontextlbl.text=questions;
@@ -444,8 +447,23 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
+    if (indexPath.row == 0) {
+        lblTemp.text=_option1;
+    }
+    else if (indexPath.row == 1) {
+        lblTemp.text=_option2;
+    }
+    else if (indexPath.row == 2) {
+        lblTemp.text=_option3;
+    }
+    else {
+        lblTemp.text=_option4;
+    }
+
+
+
   
-        lblTemp.text=@"Friends";
+    
   
     [cell.contentView addSubview:lblTemp];
     
@@ -557,14 +575,20 @@
     }
     else
     {
-        _questionNo = [[fetchedObjects objectAtIndex:0] valueForKey:@"questionNo"];
-        _question = [[fetchedObjects objectAtIndex:0] valueForKey:@"question"];
-        _option1 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option1"];
-        _option2 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option2"];
-        _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
-        _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
+        _questionNo = [[fetchedObjects objectAtIndex:3] valueForKey:@"questionNo"];
+//        _question = [[fetchedObjects objectAtIndex:0] valueForKey:@"question"];
+//        _option1 = [[fetchedObjects objectAtIndex:2] valueForKey:@"option1"];
+//        _option2 = [[fetchedObjects objectAtIndex:2] valueForKey:@"option2"];
+//        _option3 = [[fetchedObjects objectAtIndex:2] valueForKey:@"option3"];
+//        _option4 = [[fetchedObjects objectAtIndex:2] valueForKey:@"option4"];
         
     }
+    NSLog(@"_questionNo =%@",_questionNo);
+//    NSLog(@"_question =%@",_question);
+//    NSLog(@"_option1 =%@",_option1);
+//    NSLog(@"_option2 =%@",_option2);
+//    NSLog(@"_option3 =%@",_option3);
+//    NSLog(@"_option4 =%@",_option4);
     NSLog(@"Fetch using core data exited");
 }
 
