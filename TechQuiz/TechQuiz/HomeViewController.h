@@ -19,5 +19,7 @@
 @property (strong, nonatomic) NSString *option3;
 @property (strong,nonatomic) NSString *option4;
 @property (strong,nonatomic) NSString *correctAnswer;
+@property (strong,nonatomic) NSString *favouriteState;
+@property (strong, nonatomic) UIButton *favouriteButton;
 
 @end
