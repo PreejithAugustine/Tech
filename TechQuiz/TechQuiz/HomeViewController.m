@@ -80,7 +80,7 @@
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
-        [self loadIntialView];
+    [self loadIntialView];
 }
 
 
@@ -95,6 +95,7 @@
     questionNumberCount=0;
     tableSelected=0;
     
+    [self fetchUsingCoreData:questionNumberCount];
     baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
     baseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:baseView];
@@ -108,11 +109,24 @@
     [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
     [topMenuView addSubview:filterBtn];
-
-    UIButton *favoriteBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
-    [topMenuView addSubview:favoriteBtn];
+    NSLog(@"favourite state in load initial view = %@",_favouriteState);
+    if ([_favouriteState isEqualToString:@"false"]) {
+        
+    
+    _favouriteButton =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
+    [_favouriteButton setImage:[UIImage imageNamed:@"Heart2.png"]forState:UIControlStateNormal];
+    [_favouriteButton addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [topMenuView addSubview:_favouriteButton];
+    } else
+    {
+        _favouriteButton =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-90,10, 30, 30)];
+        [_favouriteButton setImage:[UIImage imageNamed:@"heart.png"]forState:UIControlStateNormal];
+        [_favouriteButton addTarget:self action:@selector(favoriteAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [topMenuView addSubview:_favouriteButton];
+        
+    }
     
     UILabel *lblQuestion =[[UILabel alloc]initWithFrame:CGRectMake(20,10, 30, 30)];
     lblQuestion.text= @"Q:";
@@ -176,7 +190,7 @@
     [baseView addSubview:homeScrollView];
     
     
-    [self fetchUsingCoreData:questionNumberCount];
+   // [self fetchUsingCoreData:questionNumberCount];
     NSString * questionNumber =_questionNo;
     NSString * questiontext = _question;
    
@@ -226,15 +240,6 @@
 //    [homeScrollView addSubview:answerButton];
     
     
-    
-    
-//    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerButton.frame.origin.y+answerButton.frame.size.height+10, screenWidth-20, 80)];
-//    correctAnswerView.backgroundColor=[UIColor whiteColor];
-//    correctAnswerView.layer.cornerRadius=10;
-//    correctAnswerView.hidden=TRUE;
-//    correctAnswerView.clipsToBounds=YES;
-//    [homeScrollView addSubview:correctAnswerView];
-    
     answerIndicatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
     answerIndicatorLabel.backgroundColor = [UIColor redColor];
     answerIndicatorLabel.hidden = TRUE;
@@ -243,19 +248,28 @@
     [answerIndicatorLabel setBackgroundColor:[UIColor whiteColor]];
     [homeScrollView addSubview:answerIndicatorLabel];
     
-    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-    NSString * correctAnswerStr =@"Dennis Ritchie";
-    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerIndicatorLabel.frame.origin.y + answerIndicatorLabel.frame.size.height+10, screenWidth-20, 80)];
+    correctAnswerView.backgroundColor=[UIColor whiteColor];
+    correctAnswerView.layer.cornerRadius=10;
+    //correctAnswerView.hidden=TRUE;
+    correctAnswerView.clipsToBounds=YES;
+    [homeScrollView addSubview:correctAnswerView];
     
-    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
-    answertextlbl.text=answertext;
-    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
-                          ];
-    answertextlbl.numberOfLines=3;
-    answertextlbl.textAlignment=NSTextAlignmentLeft;
     
-    [correctAnswerView addSubview:answertextlbl];
+//    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+//    NSString * correctAnswerStr = _correctAnswer;
+//    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+//    
+//    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+//    answertextlbl.text=answertext;
+//    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+//    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+//                          ];
+//    answertextlbl.numberOfLines=3;
+//    answertextlbl.textAlignment=NSTextAlignmentLeft;
+//    
+//    [correctAnswerView addSubview:answertextlbl];
+    //correctAnswerView.hidden = TRUE ;
     
     kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     kbHideButton.backgroundColor = [UIColor clearColor];
@@ -356,6 +370,55 @@
 
 
 -(void)favoriteAction{
+    NSLog(@"Favourite Action clicked");
+   // NSLog(@"_favouriteState = %@",_favouriteState);
+    
+    if ([ _favouriteState isEqualToString: @"false"])
+    {
+        [  _favouriteButton setImage:[UIImage imageNamed:@"heart.png" ] forState:UIControlStateNormal];
+        
+        _favouriteState = @"true";
+        NSManagedObjectContext *context = [self managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"question = %@",_question];
+        [request setPredicate:predicate];
+        
+        NSError  *error = nil;
+        NSArray *results = [context executeFetchRequest:request error:&error];
+        
+        NSManagedObject *favoritsGrabbed = [results objectAtIndex:0];
+        [favoritsGrabbed setValue:@"true" forKey:@"favouriteState"];
+        
+        if (![context save:&error]) {
+            NSLog(@"Cant Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+    }
+    else if ([_favouriteState isEqualToString:@"true"])
+    {
+        
+        [_favouriteButton setImage:[UIImage imageNamed:@"Heart2.png" ] forState:UIControlStateNormal];
+        _favouriteState = @"false";
+        
+        NSManagedObjectContext *context = [self managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"question = %@",_question];
+        [request setPredicate:predicate];
+        
+        NSError  *error = nil;
+        NSArray *results = [context executeFetchRequest:request error:&error];
+        
+        NSManagedObject *favoritsGrabbed = [results objectAtIndex:0];
+        [favoritsGrabbed setValue:@"false" forKey:@"favouriteState"];
+        
+        if (![context save:&error]) {
+            NSLog(@"Cant Save! %@ %@", error, [error localizedDescription]);
+        }
+    }
+
+
 }
 
 -(void) howList{}
@@ -378,6 +441,7 @@
 -(void)nextquestions{
 
     [self fetchUsingCoreData:questionNumberCount];
+    [self favoriteAction];
     NSString *questions = [NSString stringWithFormat:@"%@, %@", _questionNo, _question];
     questiontextlbl.text=questions;
     tableSelected=0;
@@ -386,13 +450,13 @@
     [tableViews reloadData];
 }
 
--(void) answerAction{
-    //[homeScrollView setContentOffset:CGPointZero animated:YES];
-    CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
-    [homeScrollView setContentOffset:bottomOffset animated:YES];
-    correctAnswerView.hidden=false;
-    
-}
+//-(void) answerAction{
+//    //[homeScrollView setContentOffset:CGPointZero animated:YES];
+//    CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
+//    [homeScrollView setContentOffset:bottomOffset animated:YES];
+//    //correctAnswerView.hidden=false;
+//    
+//}
 
 
 
@@ -488,8 +552,7 @@
 {
     tableSelected=1;
     selectedIndexPath=indexPath.row;
-    //answerButton.hidden=false;
-    answerIndicatorLabel.hidden = false;
+    
     
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
     NSLog(@"option selected is = %@",selectedAnswer);
@@ -499,12 +562,30 @@
     {
         answerIndicatorLabel.text = @"Correct Answer";
         answerIndicatorLabel.backgroundColor = [UIColor greenColor];
+        answerIndicatorLabel.hidden = FALSE;
+        correctAnswerView.hidden = TRUE;
         
     }
     else
     {
         answerIndicatorLabel.text = @"Incorrect Answer";
         answerIndicatorLabel.backgroundColor = [UIColor redColor];
+        
+        NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+        NSString * correctAnswerStr = _correctAnswer;
+        NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+        
+        UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+        answertextlbl.text=answertext;
+        answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+        answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+                              ];
+        answertextlbl.numberOfLines=3;
+        answertextlbl.textAlignment=NSTextAlignmentLeft;
+        
+        [correctAnswerView addSubview:answertextlbl];
+        correctAnswerView.hidden = FALSE;
+        answerIndicatorLabel.hidden = TRUE;
 
     }
     
@@ -556,9 +637,10 @@
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
             [newQuestionKit setValue:[correctAnswerArray objectAtIndex:i] forKey:@"correctAnswer"];
+            [newQuestionKit setValue:@"false" forKey:@"favouriteState"];
         }
     }
-    //save the object to persistent store
+        //save the object to persistent store
     if (![context save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
@@ -591,6 +673,7 @@
         _option3 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option3"];
         _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
         _correctAnswer = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correctAnswer"];
+        _favouriteState = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"favouriteState"];
         NSLog(@"_correctAnswer =%@",_correctAnswer);
         if (optionsAry.count >0)
         {
