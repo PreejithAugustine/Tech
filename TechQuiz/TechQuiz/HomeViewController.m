@@ -197,11 +197,13 @@
     [baseView addSubview:homeScrollView];
     
     
-   // [self fetchUsingCoreData:questionNumberCount];
-    NSString * questionNumber =_questionNo;
-    NSString * questiontext = _question;
-   
-    NSString *questions = [NSString stringWithFormat:@"%@, %@", _questionNo, _question];
+    [self fetchUsingCoreData:questionNumberCount];
+    
+    //questionNumberCount
+   // NSString * questionNumber =_questionNo;
+   // NSString * questiontext = _question;
+    questionNumberInt=questionNumberCount;
+    NSString *questions = [NSString stringWithFormat:@"%d, %@", questionNumberInt+1, _question];
      questiontextlbl.text=questions;
     questiontextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,screenWidth-20,100)];
     questiontextlbl.text=questions;
@@ -245,6 +247,7 @@
 //    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
 //    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
 //    [homeScrollView addSubview:answerButton];
+
     
     
     answerIndicatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
@@ -255,13 +258,26 @@
     [answerIndicatorLabel setBackgroundColor:[UIColor whiteColor]];
     [homeScrollView addSubview:answerIndicatorLabel];
     
-    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerIndicatorLabel.frame.origin.y + answerIndicatorLabel.frame.size.height+10, screenWidth-20, 80)];
-    correctAnswerView.backgroundColor=[UIColor whiteColor];
-    correctAnswerView.layer.cornerRadius=10;
-    //correctAnswerView.hidden=TRUE;
-    correctAnswerView.clipsToBounds=YES;
-    [homeScrollView addSubview:correctAnswerView];
     
+   
+    correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerIndicatorLabel.frame.origin.y+answerIndicatorLabel.frame.size.height+10, screenWidth-20, 80)];
+     correctAnswerView.backgroundColor=[UIColor whiteColor];
+    correctAnswerView.hidden=TRUE;
+    correctAnswerView.layer.cornerRadius=10;
+    correctAnswerView.clipsToBounds=YES;
+       [homeScrollView addSubview:correctAnswerView];
+    
+    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+    NSString * correctAnswerStr =@"Dennis Ritchie";
+    answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+    
+    answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+    answertextlbl.text=answertext;
+    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+                          ];
+    answertextlbl.numberOfLines=3;
+    answertextlbl.textAlignment=NSTextAlignmentLeft;
     
 //    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
 //    NSString * correctAnswerStr = _correctAnswer;
@@ -369,7 +385,7 @@
     tableSelected=0;
     answerButton.hidden=TRUE;
     answerIndicatorLabel.hidden=TRUE;
-    NSLog(@"options %@",optionsAry);
+    //NSLog(@"options %@",optionsAry);
     [tableViews reloadData];
 
     
@@ -395,7 +411,7 @@
 
 -(void)favoriteAction{
     NSLog(@"Favourite Action clicked");
-   // NSLog(@"_favouriteState = %@",_favouriteState);
+    NSLog(@"_favouriteState = %@",_favouriteState);
     
     if ([ _favouriteState isEqualToString: @"false"])
     {
@@ -460,7 +476,7 @@
 -(void) nextAction{
     
     
-     NSLog(@"countofQnext %d",questionNumberCount);
+    NSLog(@"countofQnext %d",questionNumberCount);
     if (questionNumberCount <[questionNoArray count]-1) {
          questionNumberCount=   questionNumberCount+1;
         [self nextquestions];
@@ -473,26 +489,26 @@
 -(void)nextquestions{
 
     [self fetchUsingCoreData:questionNumberCount];
-    [self favoriteAction];
-    NSString *questions = [NSString stringWithFormat:@"%@, %@", _questionNo, _question];
+    NSLog(@"Favourite state in next questions = %@",_favouriteState);
+    if ([ _favouriteState isEqualToString: @"false"])
+    {
+        [  _favouriteButton setImage:[UIImage imageNamed:@"Heart2.png" ] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [  _favouriteButton setImage:[UIImage imageNamed:@"heart.png" ] forState:UIControlStateNormal];
+    }
+    questionNumberInt=questionNumberCount+1;
+    questionNoTF.text=[NSString stringWithFormat:@"%d", questionNumberInt];
+    NSString *questions = [NSString stringWithFormat:@"%d, %@", questionNumberInt, _question];
     questiontextlbl.text=questions;
     tableSelected=0;
     answerButton.hidden=TRUE;
     answerIndicatorLabel.hidden=TRUE;
     correctAnswerView.hidden=TRUE;
-    NSLog(@"options %@",optionsAry);
+    //NSLog(@"options %@",optionsAry);
     [tableViews reloadData];
 }
-
-//-(void) answerAction{
-//    //[homeScrollView setContentOffset:CGPointZero animated:YES];
-//    CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height);
-//    [homeScrollView setContentOffset:bottomOffset animated:YES];
-//    //correctAnswerView.hidden=false;
-//    
-//}
-
-
 
 -(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
 {
@@ -537,8 +553,6 @@
     
     return tableView;
 }
-
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -590,8 +604,7 @@
 {
     tableSelected=1;
     selectedIndexPath=indexPath.row;
-    
-    
+     answerIndicatorLabel.hidden = false;
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
     NSLog(@"option selected is = %@",selectedAnswer);
      NSLog(@"_correctAnswer = %@",_correctAnswer);
@@ -611,29 +624,28 @@
         correctAnswerView.hidden=false;
         CGPoint bottomOffset =CGPointMake(0,homeScrollView .contentSize.height - homeScrollView.bounds.size.height-50);
         [homeScrollView setContentOffset:bottomOffset animated:YES];
+        
         NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-       
+       // NSString * correctAnswerStr = _correctAnswer;
         answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, _correctAnswer];
         answertextlbl.text=answertext;
         answerIndicatorLabel.text = @"Incorrect Answer";
         answerIndicatorLabel.backgroundColor = [UIColor redColor];
         
-        NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-        NSString * correctAnswerStr = _correctAnswer;
-        NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
         
-        UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
-        answertextlbl.text=answertext;
-        answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-        answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
-                              ];
-        answertextlbl.numberOfLines=3;
-        answertextlbl.textAlignment=NSTextAlignmentLeft;
         
-        [correctAnswerView addSubview:answertextlbl];
-        correctAnswerView.hidden = FALSE;
-        answerIndicatorLabel.hidden = TRUE;
-
+//        UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
+//        answertextlbl.text=answertext;
+//        answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
+//        answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
+//                              ];
+//        answertextlbl.numberOfLines=3;
+//        answertextlbl.textAlignment=NSTextAlignmentLeft;
+//        
+//        [correctAnswerView addSubview:answertextlbl];
+//        correctAnswerView.hidden = FALSE;
+//        answerIndicatorLabel.hidden = TRUE;
+//
     }
     
     [tableView reloadData];
@@ -687,12 +699,41 @@
             [newQuestionKit setValue:@"false" forKey:@"favouriteState"];
         }
     }
+    else {
+        
+        
+        NSManagedObjectContext *context = [self managedObjectContext];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit"
+                                                  inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSError *error;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects == nil) {
+            // Handle the error.
+            NSLog(@"Fetched objects = nil");
+        }
+        else
+        {
+            _favouriteState = [[fetchedObjects objectAtIndex:0] valueForKey:@"favouriteState"];
+            _question = [[fetchedObjects objectAtIndex:0] valueForKey:@"question"];
+            _option1 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option1"];
+            _option2 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option2"];
+            _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
+            _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
+            _correctAnswer = [[fetchedObjects objectAtIndex:0] valueForKey:@"correctAnswer"];
+        }
+        
+    }
+
         //save the object to persistent store
-    if (![context save:&error]) {
+           
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
     
-}
+
 
 - (void) fetchUsingCoreData:(NSInteger) questionNumber
 {
@@ -729,13 +770,7 @@
         optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
         
     }
-    NSLog(@"_questionNo =%@",_questionNo);
-//    NSLog(@"_question =%@",_question);
-//    NSLog(@"_option1 =%@",_option1);
-//    NSLog(@"_option2 =%@",_option2);
-//    NSLog(@"_option3 =%@",_option3);
-//    NSLog(@"_option4 =%@",_option4);
-    NSLog(@"Fetch using core data exited");
+   
 }
 
 
