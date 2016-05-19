@@ -34,13 +34,6 @@
 
 -(void) viewWillAppear:(BOOL)animated{
 
-    [self.navigationItem setTitle:@"Thech - Quiz"];
-    UINavigationBar *navBar = [[self navigationController] navigationBar];
-    navBar.barTintColor     = [UIColor darkGrayColor];
-    navBar.translucent      = false;
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:18]}];
-    self.view.backgroundColor=[UIColor lightGrayColor];
     
     
     UIAlertController * alert=   [UIAlertController

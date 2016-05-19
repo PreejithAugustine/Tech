@@ -239,7 +239,7 @@
         [alert show];
         
     }
-    else if([userNameTF.text isEqualToString:_userName] && [passwordTF.text isEqualToString:_password]){
+    else if([[userNameTF.text lowercaseString] isEqualToString:_userName] && [passwordTF.text isEqualToString:_password]){
         [self navigateToHomeView];
     }    
     else{

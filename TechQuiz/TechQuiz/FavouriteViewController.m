@@ -24,7 +24,7 @@
     UIButton *previousbutton;
     UIButton *kbHideButton;
     
-    DropdownList *list;
+  
     BOOL listFlag;
     UIView *selectCategoryTF;
     
@@ -156,7 +156,7 @@
     [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:kbHideButton];
     
-    [self loadList];
+  //  [self loadList];
     
     
     selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
@@ -172,21 +172,5 @@
     
 }
 
--(void)loadList {
-    list = [[DropdownList alloc] init];
-    CGRect frame = selectCategoryTF.frame;
-    list.parentWidth = selectCategoryTF.frame.size.width;
-    list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 0);
-    list.dropdownTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    list.dropdownTableView.backgroundColor=[UIColor whiteColor];
-    list.dropdownTableView.separatorColor=[UIColor clearColor];
-    
-    listFlag = true;
-    list.delegate = self;
-    list.view.clipsToBounds = YES;
-    [baseView addSubview:list.view];
-    [self addChildViewController:list];
-    
-}
 
 @end
