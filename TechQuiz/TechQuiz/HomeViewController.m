@@ -30,13 +30,13 @@
     
     UIButton *previousbutton;
     UIButton *kbHideButton;
-    UIButton * answerButton;
+    UIButton *answerButton;
    
     
     DropdownList *list;
     BOOL listFlag;
     
-    UIScrollView*homeScrollView;
+    UIScrollView *homeScrollView;
     
     NSArray *tableData;
     UITableView *tableViews;
@@ -51,6 +51,7 @@
     NSArray *option3Array;
     NSArray *option4Array;
     NSArray *correctAnswerArray;
+    NSArray *questionCategoryArray;
     
     NSInteger  questionNumberCount;
     NSInteger  questionNumberInt;
@@ -73,6 +74,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self populateArray];
+     //NSLog(@"From viewDidLoad HVC");
      
     [self.navigationItem setTitle:@"Tech-Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
@@ -116,7 +118,8 @@
     [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
     [topMenuView addSubview:filterBtn];
-    NSLog(@"favourite state in load initial view = %@",_favouriteState);
+    
+    //NSLog(@"favourite state in load initial view = %@",_favouriteState);
     if ([_favouriteState isEqualToString:@"false"]) {
         
     
@@ -179,7 +182,7 @@
                                                         attributes:@{ NSFontAttributeName:questionNoTF.font }
                                                            context:nil].size.width;
     
-    NSLog(@"the width of yourLabel is %f", leftLabelWidth);
+    //NSLog(@"the width of yourLabel is %f", leftLabelWidth);
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
@@ -237,19 +240,7 @@
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
     
-//    answerButton =[[UIButton alloc] initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
-//    answerButton.backgroundColor=[UIColor redColor];
-//    answerButton.hidden=TRUE;
-//    answerButton.layer.cornerRadius=10;
-//    answerButton.clipsToBounds=YES;
-//    [answerButton setBackgroundColor:[UIColor whiteColor]];
-//    [answerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [answerButton addTarget:self action:@selector(answerAction) forControlEvents:UIControlEventTouchUpInside];
-//    [answerButton setTitle:@"Correct answer"forState:UIControlStateNormal];
-//    [homeScrollView addSubview:answerButton];
-
-    
-    
+   
     answerIndicatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
     answerIndicatorLabel.backgroundColor = [UIColor redColor];
     answerIndicatorLabel.hidden = TRUE;
@@ -278,6 +269,8 @@
                           ];
     answertextlbl.numberOfLines=3;
     answertextlbl.textAlignment=NSTextAlignmentLeft;
+    
+    [correctAnswerView addSubview:answertextlbl];
     
 //    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
 //    NSString * correctAnswerStr = _correctAnswer;
@@ -606,8 +599,8 @@
     selectedIndexPath=indexPath.row;
      answerIndicatorLabel.hidden = false;
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
-    NSLog(@"option selected is = %@",selectedAnswer);
-     NSLog(@"_correctAnswer = %@",_correctAnswer);
+    //NSLog(@"option selected is = %@",selectedAnswer);
+    // NSLog(@"_correctAnswer = %@",_correctAnswer);
     answerIndicatorLabel.textAlignment = NSTextAlignmentCenter;
     if ([selectedAnswer isEqualToString:_correctAnswer])
     {
@@ -675,6 +668,8 @@
     option3Array = [@[@ "Option3a ?",@"Option3b ?",@"Option3c ?",@"Option3d ?",@"Option3e ?"] mutableCopy];
     option4Array = [@[@ "Option4a ?",@"Option4b ?",@"Option4c ?",@"Option4d ?",@"Option4e ?"] mutableCopy];
     correctAnswerArray = [@[@ "Option2a ?",@"Option4b ?",@"Option3c ?",@"Option1d ?",@"Option2e ?"] mutableCopy];
+    questionCategoryArray = [@[@ "Objective C",@"C",@"Swift",@".NET",@"Android"] mutableCopy];
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
@@ -684,7 +679,7 @@
     NSInteger count = [context countForFetchRequest:request error:&error];
     
     //create a new managed object and save to core data
-    NSLog(@"count =%d",count);
+    //NSLog(@"count =%d",count);
     if (count==0) {
         
         for (int i=0; i<questionArray.count; i++) {
@@ -696,6 +691,8 @@
             [newQuestionKit setValue:[option3Array objectAtIndex:i] forKey:@"option3"];
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
             [newQuestionKit setValue:[correctAnswerArray objectAtIndex:i] forKey:@"correctAnswer"];
+            [newQuestionKit setValue:[questionCategoryArray objectAtIndex:i] forKey:@"questionCategory"];
+            
             [newQuestionKit setValue:@"false" forKey:@"favouriteState"];
         }
     }
@@ -724,20 +721,23 @@
             _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
             _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
             _correctAnswer = [[fetchedObjects objectAtIndex:0] valueForKey:@"correctAnswer"];
+            _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"_questionCategory"];
         }
         
     }
 
         //save the object to persistent store
            
+    
+    if (![context save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
     
-
+}
 
 - (void) fetchUsingCoreData:(NSInteger) questionNumber
 {
-    NSLog(@"Fetch using core data entered");
+    //NSLog(@"Fetch using core data entered");
     NSManagedObjectContext *context = [self managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -762,7 +762,8 @@
         _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
         _correctAnswer = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correctAnswer"];
         _favouriteState = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"favouriteState"];
-        NSLog(@"_correctAnswer =%@",_correctAnswer);
+         _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"questionCategory"];
+        //NSLog(@"_correctAnswer =%@",_correctAnswer);
         if (optionsAry.count >0)
         {
             [optionsAry removeAllObjects];
