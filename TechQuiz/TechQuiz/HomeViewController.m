@@ -7,6 +7,8 @@
 //
 
 #import "HomeViewController.h"
+#import "UIView+Toast.h"
+#import "DropDown.h"
 
 @interface HomeViewController (){
     float screenWidth;
@@ -33,7 +35,7 @@
     UIButton *answerButton;
    
     
-    DropdownList *list;
+    //DropdownList *list;
     BOOL listFlag;
     
     UIScrollView *homeScrollView;
@@ -59,7 +61,7 @@
     
     NSString *answertext;
     
-    
+    DropDown *dropDownTable;
     
     
 }
@@ -89,9 +91,10 @@
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
-    [self loadIntialView];
+    
+    
+   [self loadIntialView];
 }
-
 
 
 -(void)loadIntialView{
@@ -113,7 +116,8 @@
     topMenuView.backgroundColor = [UIColor whiteColor];
     [baseView addSubview:topMenuView];
     
-   
+  
+    
     UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
     [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
     [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
@@ -199,12 +203,8 @@
     homeScrollView.backgroundColor=[UIColor lightGrayColor];
     [baseView addSubview:homeScrollView];
     
-    
     [self fetchUsingCoreData:questionNumberCount];
     
-    //questionNumberCount
-   // NSString * questionNumber =_questionNo;
-   // NSString * questiontext = _question;
     questionNumberInt=questionNumberCount;
     NSString *questions = [NSString stringWithFormat:@"%d, %@", questionNumberInt+1, _question];
      questiontextlbl.text=questions;
@@ -222,8 +222,6 @@
    // NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
     questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
     questiontextlbl.textAlignment=NSTextAlignmentLeft;
-    // questiontextlbl.backgroundColor=[UIColor whiteColor];
-    // questiontextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:20];
     [questiontextlbl setTextColor:[UIColor blackColor]];
     [homeScrollView addSubview:questiontextlbl];
     
@@ -232,15 +230,15 @@
     [homeScrollView addSubview:answerOptionsView];
     
     tableViews = [self makeTableView];
-    [tableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"newFriendCell"];
+    [tableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"techQuizTable"];
     [answerOptionsView addSubview:tableViews];
     
     
     selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
+
     
-   
     answerIndicatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,answerOptionsView.frame.origin.y+answerOptionsView.frame.size.height+10, 150,40)];
     answerIndicatorLabel.backgroundColor = [UIColor redColor];
     answerIndicatorLabel.hidden = TRUE;
@@ -269,23 +267,9 @@
                           ];
     answertextlbl.numberOfLines=3;
     answertextlbl.textAlignment=NSTextAlignmentLeft;
-    
     [correctAnswerView addSubview:answertextlbl];
     
-//    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-//    NSString * correctAnswerStr = _correctAnswer;
-//    NSString *answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
-//    
-//    UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
-//    answertextlbl.text=answertext;
-//    answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-//    answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
-//                          ];
-//    answertextlbl.numberOfLines=3;
-//    answertextlbl.textAlignment=NSTextAlignmentLeft;
-//    
-//    [correctAnswerView addSubview:answertextlbl];
-    //correctAnswerView.hidden = TRUE ;
+
     
     kbHideButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     kbHideButton.backgroundColor = [UIColor clearColor];
@@ -324,38 +308,35 @@
         questionNoTF.attributedText = [attributedLeftText copy];
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
+        
+        
     }
     
 }
 
 
--(void)loadList {
-    list = [[DropdownList alloc] init];
-    CGRect frame = selectCategoryTF.frame;
-    list.parentWidth = selectCategoryTF.frame.size.width;
-    list.view.frame = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height, frame.size.width, 0);
-    list.dropdownTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    list.dropdownTableView.backgroundColor=[UIColor whiteColor];
-    list.dropdownTableView.separatorColor=[UIColor clearColor];
-    
-    listFlag = true;
-    list.delegate = self;
-    list.view.clipsToBounds = YES;
-    [baseView addSubview:list.view];
-    [self addChildViewController:list];
-    
-}
 
 
 
 
-- (void)cellClicked:(NSString *)contentLabel {
-    
-}
+
+
+
 
 - (void)showList {
-    [self dismissKeyboard];
-    [UIView makeTableView];
+   
+    dropDownTable=[[DropDown alloc] init];
+    UIView *tableView=[dropDownTable tableView :questionArray];
+     tableView.frame= CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height+(navBarHeight+tabBarHeight+statusBarHeight));
+    
+    dropDownTable.closeButton.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+(navBarHeight+tabBarHeight+statusBarHeight));
+    dropDownTable.dropDownTableViews.frame=CGRectMake(screenWidth*0.5,navBarHeight+statusBarHeight+topMenuView.frame.size.height,screenWidth*0.5,150);
+    dropDownTable.delegate=self;
+   
+    
+    UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
+    [currentWindow addSubview:tableView];
+    
     
 }
 
@@ -367,8 +348,17 @@
     [questionNoTF resignFirstResponder];
     [homeScrollView setContentOffset:CGPointZero animated:YES];
     kbHideButton.hidden=true;
-    NSString *strQuestionNo=questionNoTF.text;
-    NSInteger intQuestionNo =[strQuestionNo integerValue];
+
+    NSInteger intQuestionNo =[questionNoTF.text integerValue];
+    if (intQuestionNo==0) {
+        [homeScrollView makeToast:@"Enter a valid question Number"
+         ];
+    }
+    else if(intQuestionNo >[questionNoArray count]){
+        [homeScrollView makeToast:@"Enter a valid question Number"
+         ];
+    }
+    else{
     questionNumberCount=intQuestionNo-1;
     [self fetchUsingCoreData:questionNumberCount];
     questionNumberInt=questionNumberCount+1;
@@ -380,7 +370,7 @@
     answerIndicatorLabel.hidden=TRUE;
     //NSLog(@"options %@",optionsAry);
     [tableViews reloadData];
-
+    }
     
     
 }
@@ -389,15 +379,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 #pragma  mark
 
@@ -550,7 +532,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"newFriendCell";
+    static NSString *CellIdentifier = @"techQuizTable";
     CGRect Label1Frame = CGRectMake(40,17,screenWidth-20,18);
     UILabel *lblTemp;
     UIImageView *imgView;
@@ -593,17 +575,15 @@
     return 4;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     tableSelected=1;
     selectedIndexPath=indexPath.row;
-     answerIndicatorLabel.hidden = false;
+    answerIndicatorLabel.hidden = false;
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
     //NSLog(@"option selected is = %@",selectedAnswer);
     // NSLog(@"_correctAnswer = %@",_correctAnswer);
     answerIndicatorLabel.textAlignment = NSTextAlignmentCenter;
-    if ([selectedAnswer isEqualToString:_correctAnswer])
-    {
+    if ([selectedAnswer isEqualToString:_correctAnswer]){
         correctAnswerView.hidden=TRUE;
         [homeScrollView setContentOffset:CGPointZero animated:YES];
         answerIndicatorLabel.text = @"Correct Answer";
@@ -625,26 +605,16 @@
         answerIndicatorLabel.text = @"Incorrect Answer";
         answerIndicatorLabel.backgroundColor = [UIColor redColor];
         
-        
-        
-//        UILabel *answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
-//        answertextlbl.text=answertext;
-//        answertextlbl.lineBreakMode = NSLineBreakByWordWrapping;
-//        answertextlbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18
-//                              ];
-//        answertextlbl.numberOfLines=3;
-//        answertextlbl.textAlignment=NSTextAlignmentLeft;
-//        
-//        [correctAnswerView addSubview:answertextlbl];
-//        correctAnswerView.hidden = FALSE;
-//        answerIndicatorLabel.hidden = TRUE;
-//
     }
     
     [tableView reloadData];
-    
-    
+
 }
+
+-(void)cellClicked:(NSString *)contentLabel {
+    NSLog(@"content %@",contentLabel);
+}
+
 
 #pragma mark - Core Data support utility
 -(NSManagedObjectContext *)managedObjectContext {

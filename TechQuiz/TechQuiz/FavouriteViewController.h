@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DropdownList.h"
-#import "HomeViewController.h"
-#import <CoreData/CoreData.h>
 
 
 @interface FavouriteViewController : UIViewController
