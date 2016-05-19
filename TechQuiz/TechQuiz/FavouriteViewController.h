@@ -11,4 +11,22 @@
 
 @interface FavouriteViewController : UIViewController
 
+@property (nonatomic,strong) NSString *questionNo;
+@property (nonatomic,strong) NSString *question;
+@property (strong, nonatomic) NSString *option1;
+@property (strong,nonatomic) NSString *option2;
+@property (strong, nonatomic) NSString *option3;
+@property (strong,nonatomic) NSString *option4;
+@property (strong,nonatomic) NSString *correctAnswer;
+@property (strong,nonatomic) NSString *favouriteState;
+@property (strong, nonatomic) UIButton *favouriteButton;
+@property (strong,nonatomic) NSMutableArray *favouriteStateArray;
+@property (strong,nonatomic) NSMutableArray *questionArray;
+@property (strong,nonatomic) NSMutableArray *option1Array;
+@property (strong,nonatomic) NSMutableArray *option2Array;
+@property (strong,nonatomic) NSMutableArray *option3Array;
+@property (strong,nonatomic) NSMutableArray *option4Array;
+@property (strong,nonatomic) NSMutableArray *correctAnswerArray;
+@property (strong,nonatomic) NSMutableArray *questionCategoryArray;
+
 @end

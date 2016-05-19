@@ -8,6 +8,7 @@
 
 #import "FavouriteViewController.h"
 
+
 @interface FavouriteViewController (){
     float screenWidth;
     float screenHeight;
@@ -38,6 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //NSLog(@"From viewDidLoad FVC");
     //[self.navigationItem setTitle:@"Thec -Quiz"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor grayColor];
@@ -53,8 +56,13 @@
                                                object:nil];
     
     
-    [self loadIntialView];
+   
 
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self fetchFromCoreData];
+ [self loadIntialView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,12 +84,14 @@
 #pragma mark 
 
 -(void)loadIntialView{
+    
+        
     tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
     navBarHeight    = self.navigationController.navigationBar.frame.size.height;
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     screenWidth     = self.view.frame.size.width;
-    
     screenHeight    = self.view.frame.size.height-(navBarHeight+tabBarHeight+statusBarHeight);
+    
     baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
     baseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:baseView];
@@ -141,7 +151,7 @@
                                                         attributes:@{ NSFontAttributeName:questionNoTF.font }
                                                            context:nil].size.width;
     
-    NSLog(@"the width of yourLabel is %f", leftLabelWidth);
+    //NSLog(@"the width of yourLabel is %f", leftLabelWidth);
     
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
