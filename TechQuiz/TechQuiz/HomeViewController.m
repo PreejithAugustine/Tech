@@ -721,7 +721,7 @@
             _option3 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option3"];
             _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
             _correctAnswer = [[fetchedObjects objectAtIndex:0] valueForKey:@"correctAnswer"];
-            _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"_questionCategory"];
+            _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"questionCategory"];
         }
         
     }
