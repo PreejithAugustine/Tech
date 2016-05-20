@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface FavouriteViewController : UIViewController
+@interface FavouriteViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic,strong) NSString *questionNo;
 @property (nonatomic,strong) NSString *question;

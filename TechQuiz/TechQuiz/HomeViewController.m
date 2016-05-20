@@ -315,14 +315,6 @@
 }
 
 
-
-
-
-
-
-
-
-
 - (void)showList {
    
     dropDownTable=[[DropDown alloc] init];
@@ -436,7 +428,7 @@
 
 }
 
--(void) howList{}
+
 -(void) previousAction{
    
   
@@ -487,21 +479,24 @@
 
 -(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
 {
-    NSLog(@"Left side");
-   NSLog(@"countofQnext %d",questionNumberCount);
-    if (questionNumberCount>0) {
-         questionNumberCount=   questionNumberCount-1;
+    NSLog(@"Right side");
+    NSLog(@"countofQnext %d",questionNumberCount);
+    if (questionNumberCount <[questionNoArray count]-1) {
+        questionNumberCount=   questionNumberCount+1;
         [self nextquestions];
     }
+    
+    //
+   
 
 }
 
 -(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
 {
-    NSLog(@"Right side");
+    NSLog(@"Left side");
     NSLog(@"countofQnext %d",questionNumberCount);
-    if (questionNumberCount <[questionNoArray count]-1) {
-         questionNumberCount=   questionNumberCount+1;
+    if (questionNumberCount>0) {
+        questionNumberCount=   questionNumberCount-1;
         [self nextquestions];
     }
 }
