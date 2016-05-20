@@ -62,7 +62,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [self fetchFromCoreData];
- [self loadIntialView];
+    [self loadIntialView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -181,6 +181,84 @@
     
     
 }
+
+#pragma mark - Core Data support utility
+-(NSManagedObjectContext *)managedObjectContext {
+    
+        NSManagedObjectContext *context = nil;
+        id delegate = [[UIApplication sharedApplication ] delegate];
+        if ([delegate performSelector:@selector(managedObjectContext)]){
+                context = [delegate managedObjectContext];
+        
+            }
+    
+        return context;
+    }
+
+- (void) fetchFromCoreData
+{
+        NSManagedObjectContext *context = [self managedObjectContext];
+    
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit"
+                                                                                      inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+    
+        NSError *error;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects == nil) {
+                // Handle the error.
+                NSLog(@"Fetched objects = nil");
+            }
+        else
+            {
+                    _favouriteStateArray=[[NSMutableArray alloc]init];
+                    _questionArray =[[NSMutableArray alloc]init];
+                    _option1Array =[[NSMutableArray alloc]init];
+                    _option2Array =[[NSMutableArray alloc]init];
+                    _option3Array =[[NSMutableArray alloc]init];
+                    _option4Array =[[NSMutableArray alloc]init];
+                    _correctAnswerArray =[[NSMutableArray alloc]init];
+            
+                    int j=0;
+                    for (int i=0;i< fetchedObjects.count ; i++)
+                        {
+                                _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
+                    
+                                if ([_favouriteState isEqualToString:@"true"]) {
+                                        //NSLog(@"_favourite state is true hence in if loop");
+                                        _questionArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                                        _option1Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
+                                        _option2Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
+                                        _option3Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
+                                        _option4Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
+                                        _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
+                                                                                                             valueForKey:@"correctAnswer"];
+                                    
+                                        _questionCategoryArray[j] = [[fetchedObjects objectAtIndex:i]
+                                                                                                                   valueForKey:@"questionCategory"];
+                                    
+                                        j=j+1;
+                                    }
+                            
+                            }
+                for (int i= 0; i<fetchedObjects.count; i++) {
+                    _questionCategory = [[fetchedObjects objectAtIndex:i]
+                                                 valueForKey:@"questionCategory"];
+                    
+                    
+                    if ([_questionCategory isEqualToString:@"C"]) {
+                        
+                       _question = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                        NSLog(@"The question for C language is %@",_question);
+                    }
+                    
+
+                }
+            }
+    
+    }
+
 
 
 @end

@@ -326,7 +326,7 @@
 - (void)showList {
    
     dropDownTable=[[DropDown alloc] init];
-    UIView *tableView=[dropDownTable tableView :questionArray];
+    UIView *tableView=[dropDownTable tableView :questionCategoryArray];
      tableView.frame= CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height+(navBarHeight+tabBarHeight+statusBarHeight));
     
     dropDownTable.closeButton.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+(navBarHeight+tabBarHeight+statusBarHeight));
@@ -506,7 +506,7 @@
     }
 }
 
-#pragma mark -Table View
+#pragma mark - Table View
 -(UITableView *)makeTableView
 {
     
