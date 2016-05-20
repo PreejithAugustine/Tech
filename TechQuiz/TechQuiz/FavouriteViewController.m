@@ -83,8 +83,8 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [self fetchFromCoreData];
-    [self loadIntialView];
+   [self fetchFromCoreData];
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -313,6 +313,18 @@
     
 }
 
+#pragma mark - Core Data support utility
+-(NSManagedObjectContext *)managedObjectContext {
+    
+        NSManagedObjectContext *context = nil;
+        id delegate = [[UIApplication sharedApplication ] delegate];
+        if ([delegate performSelector:@selector(managedObjectContext)]){
+                context = [delegate managedObjectContext];
+        
+            }
+    
+        return context;
+    }
 
 
 -(void)nextquestions{
@@ -526,23 +538,11 @@
 }
 
 
-#pragma mark - Core Data support utility
--(NSManagedObjectContext *)managedObjectContext {
-
-       NSManagedObjectContext *context = nil;
-       id delegate = [[UIApplication sharedApplication ] delegate];
-       if ([delegate performSelector:@selector(managedObjectContext)]){
-               context = [delegate managedObjectContext];
-        
-        }
-    
-        return context;
-    }
-
 
 - (void) fetchFromCoreData
 {
         NSManagedObjectContext *context = [self managedObjectContext];
+    
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
@@ -564,104 +564,12 @@
                     _correctAnswerArray =[[NSMutableArray alloc]init];
             
                     int j=0;
-                    for (int i=0;i<5 ; i++)
-                        {
-                                _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
-                    
-                                if ([_favouriteState isEqualToString:@"true"]) {
-                                        //NSLog(@"_favourite state is true hence in if loop");
-                                        _questionArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
-                                        _option1Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
-                                        _option2Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
-                                        _option3Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
-                                        _option4Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
-                                        _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                           valueForKey:@"correctAnswer"];
-                                     //   _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                       //valueForKey:@"correctAnswer"];
-                        
-                                        _questionCategoryArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                            valueForKey:@"questionCategory"];
-                        
-                                        NSLog(@" _favouriteState is = %@",_favouriteState);
-                                        NSLog(@" question is = %@",_questionArray);
-                                        NSLog(@" question is = %@",_option1Array);
-                                        NSLog(@" question is = %@",_option2Array);
-                                        NSLog(@" question is = %@",_option3Array);
-                                        NSLog(@" question is = %@",_option4Array);
-                                        NSLog(@" question is = %@",_correctAnswerArray);
-                                        NSLog(@" question is = %@",_questionCategoryArray);
-                                       j=j+1;
-                                   }
-                          }
-               }
-    }
-
-
--(void) displayFavoriteData:(NSInteger)questionNumber{
-    
-   
-    
-   _option1=[_option1Array objectAtIndex:questionNumber];
-   _option2=[_option2Array objectAtIndex:questionNumber];
-   _option3=[_option3Array objectAtIndex:questionNumber];
-   _option4=[_option4Array objectAtIndex:questionNumber];
-    _question=[_questionArray objectAtIndex:questionNumber];
-    _correctAnswer =[ _correctAnswerArray objectAtIndex:questionNumber];
-     NSLog(@"options %@",_option1); NSLog(@"options %@",_option2);
-    if (optionsAry.count >0)
-    {
-        [optionsAry removeAllObjects];
-    }
-    optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
-    
-    NSLog(@"options %@",optionsAry);
-}
-
-#pragma mark - Core Data support utility
--(NSManagedObjectContext *)managedObjectContext {
-    
-        NSManagedObjectContext *context = nil;
-        id delegate = [[UIApplication sharedApplication ] delegate];
-        if ([delegate performSelector:@selector(managedObjectContext)]){
-                context = [delegate managedObjectContext];
-        
-            }
-    
-        return context;
-    }
-
-- (void) fetchFromCoreData
-{
-        NSManagedObjectContext *context = [self managedObjectContext];
-    
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit"
-                                                                                      inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-    
-        NSError *error;
-        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-                // Handle the error.
-                NSLog(@"Fetched objects = nil");
-            }
-        else
-            {
-                    _favouriteStateArray=[[NSMutableArray alloc]init];
-                    _questionArray =[[NSMutableArray alloc]init];
-                    _option1Array =[[NSMutableArray alloc]init];
-                    _option2Array =[[NSMutableArray alloc]init];
-                    _option3Array =[[NSMutableArray alloc]init];
-                    _option4Array =[[NSMutableArray alloc]init];
-                    _correctAnswerArray =[[NSMutableArray alloc]init];
-            
-                    int j=0;
                     for (int i=0;i< fetchedObjects.count ; i++)
                         {
                                 _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
                     
                                 if ([_favouriteState isEqualToString:@"true"]) {
+                                    
                                         //NSLog(@"_favourite state is true hence in if loop");
                                         _questionArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
                                         _option1Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
@@ -689,11 +597,29 @@
                         NSLog(@"The question for C language is %@",_question);
                     }
                     
-
                 }
             }
+}
+-(void) displayFavoriteData:(NSInteger)questionNumber{
     
+    
+    
+    _option1=[_option1Array objectAtIndex:questionNumber];
+    _option2=[_option2Array objectAtIndex:questionNumber];
+    _option3=[_option3Array objectAtIndex:questionNumber];
+    _option4=[_option4Array objectAtIndex:questionNumber];
+    _question=[_questionArray objectAtIndex:questionNumber];
+    _correctAnswer =[ _correctAnswerArray objectAtIndex:questionNumber];
+    NSLog(@"options %@",_option1); NSLog(@"options %@",_option2);
+    if (optionsAry.count >0)
+    {
+        [optionsAry removeAllObjects];
     }
+    optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
+    
+    NSLog(@"options %@",optionsAry);
+}
+
 
 
 
