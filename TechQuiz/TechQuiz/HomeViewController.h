@@ -23,5 +23,5 @@
 @property (strong,nonatomic) NSString *favouriteState;
 @property (strong,nonatomic) NSString *questionCategory;
 @property (strong, nonatomic) UIButton *favouriteButton;
-
+@property (strong, nonatomic) NSString *category;
 @end

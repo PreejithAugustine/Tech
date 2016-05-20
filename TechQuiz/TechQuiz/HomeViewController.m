@@ -501,7 +501,7 @@
     }
 }
 
-#pragma mark -Table View
+#pragma mark - Table View
 -(UITableView *)makeTableView
 {
     
@@ -608,6 +608,8 @@
 
 -(void)cellClicked:(NSString *)contentLabel {
     NSLog(@"content %@",contentLabel);
+    _category = contentLabel;
+    [self fetchUsingCoreData:0];
 }
 
 
@@ -702,7 +704,7 @@
 
 - (void) fetchUsingCoreData:(NSInteger) questionNumber
 {
-    //NSLog(@"Fetch using core data entered");
+    NSLog(@"Fetch using HM core data entered");
     NSManagedObjectContext *context = [self managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -734,6 +736,24 @@
             [optionsAry removeAllObjects];
         }
         optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
+        
+        for (int i= 0; i<fetchedObjects.count; i++) {
+            _questionCategory = [[fetchedObjects objectAtIndex:i]
+                                 valueForKey:@"questionCategory"];
+             if ([_questionCategory isEqualToString:_category]) {
+                _question = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                 _option1 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
+                 _option2 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
+                 _option3 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
+                 _option4 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
+                 _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
+                 _correctAnswer = [[fetchedObjects objectAtIndex:i] valueForKey:@"correctAnswer"];
+                 NSLog(@"_category =%@",_category);
+                 NSLog(@"_questionCategory =%@",_questionCategory);
+                 NSLog(@"The question is %@",_question);
+            }
+            
+        }
         
     }
    
