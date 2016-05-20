@@ -61,8 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //NSLog(@"From viewDidLoad FVC");
-    //[self.navigationItem setTitle:@"Thec -Quiz"];
+  
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor grayColor];
     navBar.translucent      = false;
@@ -84,6 +83,8 @@
 
 -(void) viewWillAppear:(BOOL)animated{
    [self fetchFromCoreData];
+    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[_questionArray count]];
+
   
 }
 
@@ -379,7 +380,10 @@
         questionNoTF.attributedText = [attributedLeftText copy];
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
-        
+      //  questionNoTF.text=@"1";
+        NSLog(@"question number %d",questionNumberCount);
+        NSLog(@"question number %d",questionNumberInt);
+
         
     }
     
@@ -577,8 +581,7 @@
                                         _option4Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
                                         _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
                                                                                                            valueForKey:@"correctAnswer"];
-                                     //   _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                       //valueForKey:@"correctAnswer"];
+                                    
                         
                                         _questionCategoryArray[j] = [[fetchedObjects objectAtIndex:i]
                                                                                                             valueForKey:@"questionCategory"];
@@ -616,6 +619,7 @@
     optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
     
     NSLog(@"options %@",optionsAry);
+    
 }
 
 
