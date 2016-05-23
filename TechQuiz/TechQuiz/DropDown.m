@@ -25,15 +25,13 @@
   
     [closeButton addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview: closeButton];
-      dropDownTableViews = [self makeTableView];
     
+    dropDownTableViews = [self makeTableView];
     [dropDownTableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"techQuizTable"];
-     [baseView addSubview: dropDownTableViews];
-    arrCategories=array;
-   
-    NSLog(@"test %@",arrCategories );
-
+    [baseView addSubview: dropDownTableViews];
     
+    arrCategories=array;
+    NSLog(@"test %@",arrCategories );   
     
     
     return baseView;
