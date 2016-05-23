@@ -116,6 +116,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
      NSString *selectedAnswer = [arrCategories objectAtIndex:indexPath.row];
     [self.delegate cellClicked:selectedAnswer];
+     [baseView removeFromSuperview];
     
 }
 -(void)closeView{

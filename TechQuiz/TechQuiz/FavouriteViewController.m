@@ -76,14 +76,34 @@
      
                                                object:nil];
     [self fetchFromCoreData];
-     [self loadIntialView];
+    if ([_correctAnswerArray count]>0)
+    {
+        [self loadIntialView];
+    }
+    else{
+        [homeScrollView makeToast:@"There is no question under specified category"
+         ];
+    }
+    
 
 
 }
 
 -(void) viewWillAppear:(BOOL)animated{
    [self fetchFromCoreData];
-    totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[_questionArray count]];
+    if ([_correctAnswerArray count]>0)
+    {
+        self.view.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+200);
+        [self loadIntialView];
+         totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[_questionArray count]];
+    }
+    else{
+        [baseView removeFromSuperview];
+        
+        [self.tabBarController.view makeToast:@"There is no question under specified category"
+         ];
+    }
+   
 
   
 }
@@ -114,12 +134,7 @@
     topMenuView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 50)];
     topMenuView.backgroundColor = [UIColor whiteColor];
     [baseView addSubview:topMenuView];
-    
-    UIButton *filterBtn =[[UIButton alloc]initWithFrame:CGRectMake(screenWidth-50,10, 30, 30)];
-    [filterBtn setImage:[UIImage imageNamed:@"filter.png"]forState:UIControlStateNormal];
-    [filterBtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
-    [topMenuView addSubview:filterBtn];
-    
+
     
     UILabel *lblQuestion =[[UILabel alloc]initWithFrame:CGRectMake(20,10, 30, 30)];
     lblQuestion.text= @"Q:";
@@ -232,9 +247,9 @@
     correctAnswerView.clipsToBounds=YES;
     [homeScrollView addSubview:correctAnswerView];
     
-    NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-    NSString * correctAnswerStr =@"Dennis Ritchie";
-    answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
+   // NSString * correctAnswerIndex =@"Correct Answer for the above is ";
+//    NSString * correctAnswerStr =@"Dennis Ritchie";
+//    answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
     
     answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
     answertextlbl.text=answertext;
@@ -349,39 +364,7 @@
     return YES;
 }
 
-//-(void)textFieldDidBeginEditing:(UITextField *)textField
-//{
-//    [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:@"name"];
-//   // textField.text = @"";
-//}
-//
-//-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
-//{
-//////    if ([textField.text isEqualToString:@""])
-////        textField.text  = [[NSUserDefaults standardUserDefaults]
-////                           stringForKey:@"name"];
-////    NSInteger intQuestionNo =[questionNoTF.text integerValue];
-////    NSString *tempQuestionNumber=questionNoTF.text;
-////    NSLog(@"tempQuestion %@",tempQuestionNumber);
-////    if (intQuestionNo==0) {
-////        //questionNoTF.text  = [[NSUserDefaults standardUserDefaults]
-////                         //  stringForKey:@"name"];
-//        NSLog(@"Testfff");
-//      //  [homeScrollView makeToast:@"Enter a valid question Number"
-//        // ];
-//    }
-//    else if(intQuestionNo >[_questionArray count]){
-//        //questionNoTF.text  = [[NSUserDefaults standardUserDefaults]
-//                           //stringForKey:@"name"];
-//  NSLog(@"Testfff");
-//        //[homeScrollView makeToast:@"Enter a valid question Number"
-//         //];
-//    }
-//    
-//    
-//    NSLog(@"test %@",questionNoTF.text);
-//    return YES;
-//}
+
 
 - (void)textFieldDidChange {
     
@@ -392,7 +375,6 @@
         questionNoTF.attributedText = [attributedLeftText copy];
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
-      //  questionNoTF.text=@"1";
         NSLog(@"question number %d",questionNumberCount);
         NSLog(@"question number %d",questionNumberInt);
 
