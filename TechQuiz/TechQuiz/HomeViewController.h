@@ -8,21 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIView+TechCategories.h"
+
 #import <CoreData/CoreData.h>
 #import "DropDown.h"
 
 @interface HomeViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDelegate, UITableViewDataSource,DropDownViewDelegate>
-@property (nonatomic,strong) NSString *questionNo;
-@property (nonatomic,strong) NSString *question;
-@property (strong, nonatomic) NSString *option1;
+
+@property (nonatomic,strong)  NSString *questionNo;
+@property (nonatomic,strong)  NSString *question;
+@property (strong,nonatomic)  NSString *option1;
 @property (strong,nonatomic)  NSString *option2;
-@property (strong, nonatomic) NSString *option3;
-@property (strong,nonatomic) NSString *option4;
-@property (strong,nonatomic) NSString *correctAnswer;
-@property (strong,nonatomic) NSString *favouriteState;
-@property (strong,nonatomic) NSString *questionCategory;
-@property (strong, nonatomic) UIButton *favouriteButton;
-@property (strong, nonatomic) NSString *category;
-@property (strong, nonatomic) NSString *corresSelectCategoryStr;
+@property (strong,nonatomic)  NSString *option3;
+@property (strong,nonatomic)  NSString *option4;
+@property (strong,nonatomic)  NSString *correctAnswer;
+@property (strong,nonatomic)  NSString *favouriteState;
+@property (strong,nonatomic)  NSString *questionCategory;
+@property (strong,nonatomic)  UIButton *favouriteButton;
+@property (strong,nonatomic)  NSString *category;
+@property (strong,nonatomic)  NSString *corresSelectCategoryStr;
 @end

@@ -16,7 +16,6 @@
 		432E47951CE3EEFA005BFC86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 432E47941CE3EEFA005BFC86 /* Assets.xcassets */; };
 		432E47981CE3EEFA005BFC86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 432E47961CE3EEFA005BFC86 /* LaunchScreen.storyboard */; };
 		4334A2401CEC6249005B9339 /* DropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4334A23F1CEC6249005B9339 /* DropDown.m */; };
-		4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */; };
 		4357A4111CE9A757005B6F7E /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4357A40F1CE9A757005B6F7E /* checkin.png */; };
 		4357A4121CE9A757005B6F7E /* checkout.png in Resources */ = {isa = PBXBuildFile; fileRef = 4357A4101CE9A757005B6F7E /* checkout.png */; };
 		6C3997F92142EB80AFBB4F1D /* libPods-TechQuiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1CF5B5D90DA9693FFE3091F /* libPods-TechQuiz.a */; };
@@ -55,8 +54,6 @@
 		432E47991CE3EEFA005BFC86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4334A23E1CEC6249005B9339 /* DropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDown.h; sourceTree = "<group>"; };
 		4334A23F1CEC6249005B9339 /* DropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDown.m; sourceTree = "<group>"; };
-		4348917C1CE5A74A00BF12CF /* UIView+TechCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechCategories.h"; sourceTree = "<group>"; };
-		4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechCategories.m"; sourceTree = "<group>"; };
 		4357A40F1CE9A757005B6F7E /* checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkin.png; sourceTree = "<group>"; };
 		4357A4101CE9A757005B6F7E /* checkout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkout.png; sourceTree = "<group>"; };
 		CD2B48761CE34D25009C5D8B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -187,8 +184,6 @@
 		CDE4A80A1CE43FC3003EFD9F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4348917C1CE5A74A00BF12CF /* UIView+TechCategories.h */,
-				4348917D1CE5A74A00BF12CF /* UIView+TechCategories.m */,
 				4334A23E1CEC6249005B9339 /* DropDown.h */,
 				4334A23F1CEC6249005B9339 /* DropDown.m */,
 				432CDAEA1CE56284002DCC83 /* Images */,
@@ -342,7 +337,6 @@
 				CDA05EB01CE9B34900202D7C /* TechQuizModel.xcdatamodeld in Sources */,
 				4334A2401CEC6249005B9339 /* DropDown.m in Sources */,
 				432E478A1CE3EEFA005BFC86 /* main.m in Sources */,
-				4348917E1CE5A74A00BF12CF /* UIView+TechCategories.m in Sources */,
 				CD2B48781CE34D25009C5D8B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

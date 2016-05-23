@@ -36,9 +36,7 @@
     UIButton *previousbutton;
     UIButton *kbHideButton;
     
-  
     BOOL listFlag;
-    
     
     UIScrollView *homeScrollView;
     NSArray *tableData;
@@ -55,57 +53,45 @@
 @end
 
 @implementation FavouriteViewController
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-  
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor grayColor];
     navBar.translucent      = false;
-    self.navigationItem.title =@"Tech Quiz";
+    self.navigationItem.title =@"Favorite";
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:18]}];
     self.view.backgroundColor=[UIColor lightGrayColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-     
-                                               object:nil];
+                                                 name:UIKeyboardWillShowNotification object:nil];
+ 
     [self fetchFromCoreData];
-    if ([_correctAnswerArray count]>0)
-    {
+    if ([_correctAnswerArray count]>0){
         [self loadIntialView];
     }
-    else{
-        [homeScrollView makeToast:@"There is no question under specified category"
-         ];
+    else{[homeScrollView makeToast:@"There is no question under specified category"];
     }
-    
-
-
 }
 
 -(void) viewWillAppear:(BOOL)animated{
    [self fetchFromCoreData];
-    if ([_correctAnswerArray count]>0)
-    {
+    if ([_correctAnswerArray count]>0){
         self.view.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+200);
         [self loadIntialView];
          totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[_questionArray count]];
     }
     else{
         [baseView removeFromSuperview];
-        
         [self.tabBarController.view makeToast:@"There is no question under specified category"
          ];
     }
-   
 
-  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,11 +102,10 @@
 
 
 
-#pragma mark 
+
 
 -(void)loadIntialView{
     
-        
     tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
     navBarHeight    = self.navigationController.navigationBar.frame.size.height;
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -184,8 +169,6 @@
                                                         attributes:@{ NSFontAttributeName:questionNoTF.font }
                                                            context:nil].size.width;
     
-    //NSLog(@"the width of yourLabel is %f", leftLabelWidth);
-    
     totalQuestionNolbl  = [[UILabel alloc] initWithFrame:CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30)];
     totalQuestionNolbl.textColor = [UIColor blackColor];
     [totalQuestionNolbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
@@ -217,12 +200,10 @@
     [attributedString setAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:16]} range:NSMakeRange(0, attributedString.length)];
     CGSize expectedSize = [attributedString boundingRectWithSize:maximumSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     questiontextlbl.numberOfLines =(expectedSize.height/20)+1;
-    // NSLog(@"number of lines %ld",(long)questiontextlbl.numberOfLines);
     questiontextlbl.frame=CGRectMake(10,10,screenWidth-20,20*(expectedSize.height/20)+20);
     questiontextlbl.textAlignment=NSTextAlignmentLeft;
     [questiontextlbl setTextColor:[UIColor blackColor]];
     [homeScrollView addSubview:questiontextlbl];
-    
     
     UIView * answerOptionsView=[[UIView alloc]initWithFrame:CGRectMake(10,questiontextlbl.frame.size.height+20,screenWidth-20 ,200)];
   
@@ -239,17 +220,12 @@
     [answerIndicatorLabel setBackgroundColor:[UIColor whiteColor]];
     [homeScrollView addSubview:answerIndicatorLabel];
     
-    
     correctAnswerView=[[UIView alloc]initWithFrame:CGRectMake(10, answerIndicatorLabel.frame.origin.y+answerIndicatorLabel.frame.size.height+10, screenWidth-20, 80)];
     correctAnswerView.backgroundColor=[UIColor whiteColor];
     correctAnswerView.hidden=TRUE;
     correctAnswerView.layer.cornerRadius=10;
     correctAnswerView.clipsToBounds=YES;
     [homeScrollView addSubview:correctAnswerView];
-    
-   // NSString * correctAnswerIndex =@"Correct Answer for the above is ";
-//    NSString * correctAnswerStr =@"Dennis Ritchie";
-//    answertext = [NSString stringWithFormat:@"%@, %@", correctAnswerIndex, correctAnswerStr];
     
     answertextlbl=[[UILabel alloc]initWithFrame:CGRectMake(10,-10,screenWidth-20,80)];
     answertextlbl.text=answertext;
@@ -266,8 +242,6 @@
     kbHideButton.hidden=true;
     [kbHideButton addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:kbHideButton];
-    
-
     [baseView bringSubviewToFront:kbHideButton];
     
     UISwipeGestureRecognizer * swipeleft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeleft:)];
@@ -278,40 +252,33 @@
     UISwipeGestureRecognizer * swiperight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
     swiperight.direction=UISwipeGestureRecognizerDirectionRight;
     [baseView addGestureRecognizer:swiperight];
-    
- 
-    
+  
     selectCategoryTF=[[UIView alloc]initWithFrame:CGRectMake(20,screenHeight*0.18+3,screenWidth-40, screenHeight*0.09)];
    
     selectCategoryTF.layer.sublayerTransform = CATransform3DMakeTranslation(10.0f, 0.0f, 0.0f);
     [baseView addSubview: selectCategoryTF];
- 
-}
+ }
 
-
--(void)showList{
-}
+#pragma mark - Button Actions
 
 -(void) previousAction{
-    NSLog(@"countofQnext %d",questionNumberCount);
-    if (questionNumberCount>0) {
-        questionNumberCount=   questionNumberCount-1;
-        [self nextquestions];
-    }
-    
+    [self rightIncrement];
     
 }
 -(void) nextAction{
-     NSLog(@"countofQnext %d",questionNumberCount);
-    if (questionNumberCount <[_questionArray count]-1) {
-        questionNumberCount=   questionNumberCount+1;
-        [self nextquestions];
-    }
+    [self leftDecrement];
 }
 
--(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
-{
-    NSLog(@"Right side");
+-(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer{
+    [self leftDecrement];
+}
+
+-(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer{
+    [self rightIncrement];
+}
+
+
+-(void) leftDecrement{
     NSLog(@"countofQnext %d",questionNumberCount);
     if (questionNumberCount <[_questionArray count]-1) {
         questionNumberCount=   questionNumberCount+1;
@@ -319,34 +286,18 @@
     }
 }
 
--(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
-{   NSLog(@"Left side");
+-(void)rightIncrement{
     NSLog(@"countofQnext %d",questionNumberCount);
     if (questionNumberCount>0) {
         questionNumberCount=   questionNumberCount-1;
         [self nextquestions];
     }
-    
+
 }
-
-#pragma mark - Core Data support utility
--(NSManagedObjectContext *)managedObjectContext {
-    
-        NSManagedObjectContext *context = nil;
-        id delegate = [[UIApplication sharedApplication ] delegate];
-        if ([delegate performSelector:@selector(managedObjectContext)]){
-                context = [delegate managedObjectContext];
-        
-            }
-    
-        return context;
-    }
-
 
 -(void)nextquestions{
     
     [self displayFavoriteData:questionNumberCount];
-    NSLog(@"Favourite state in next questions = %@",_favouriteState);
     questionNumberInt=questionNumberCount+1;
     questionNoTF.text=[NSString stringWithFormat:@"%d", questionNumberInt];
     NSString *questions = [NSString stringWithFormat:@"%d, %@", questionNumberInt, _question];
@@ -358,13 +309,94 @@
 }
 
 
+#pragma mark - Core Data support utility
+-(NSManagedObjectContext *)managedObjectContext {
+        NSManagedObjectContext *context = nil;
+        id delegate = [[UIApplication sharedApplication ] delegate];
+        if ([delegate performSelector:@selector(managedObjectContext)]){
+                context = [delegate managedObjectContext];
+        
+            }
+    
+        return context;
+    }
+
+
+#pragma mark
+
+- (void) fetchFromCoreData
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"Fetched objects = nil");
+    }
+    else
+    {
+        _favouriteStateArray=[[NSMutableArray alloc]init];
+        _questionArray =[[NSMutableArray alloc]init];
+        _option1Array =[[NSMutableArray alloc]init];
+        _option2Array =[[NSMutableArray alloc]init];
+        _option3Array =[[NSMutableArray alloc]init];
+        _option4Array =[[NSMutableArray alloc]init];
+        _correctAnswerArray =[[NSMutableArray alloc]init];
+        
+        int j=0;
+        for (int i=0;i< fetchedObjects.count ; i++)
+        {
+            _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
+            
+            if ([_favouriteState isEqualToString:@"true"]) {
+                _questionArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                _option1Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
+                _option2Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
+                _option3Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
+                _option4Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
+                _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
+                                          valueForKey:@"correctAnswer"];
+                _questionCategoryArray[j] = [[fetchedObjects objectAtIndex:i]
+                                             valueForKey:@"questionCategory"];
+                j=j+1;}
+        }
+        
+    }
+}
+
+
+
+
+-(void) displayFavoriteData:(NSInteger)questionNumber{
+    _option1=[_option1Array objectAtIndex:questionNumber];
+    _option2=[_option2Array objectAtIndex:questionNumber];
+    _option3=[_option3Array objectAtIndex:questionNumber];
+    _option4=[_option4Array objectAtIndex:questionNumber];
+    _question=[_questionArray objectAtIndex:questionNumber];
+    _correctAnswer =[ _correctAnswerArray objectAtIndex:questionNumber];
+    NSLog(@"options %@",_option1); NSLog(@"options %@",_option2);
+    if (optionsAry.count >0)
+    {
+        [optionsAry removeAllObjects];
+    }
+    optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
+    NSLog(@"options %@",optionsAry);
+    
+}
+
+
+
+
+
 #pragma mark -  Text Field delegates
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
-
-
 
 - (void)textFieldDidChange {
     
@@ -375,10 +407,6 @@
         questionNoTF.attributedText = [attributedLeftText copy];
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
-        NSLog(@"question number %d",questionNumberCount);
-        NSLog(@"question number %d",questionNumberInt);
-
-        
     }
     
 }
@@ -392,10 +420,8 @@
     [questionNoTF resignFirstResponder];
     [homeScrollView setContentOffset:CGPointZero animated:YES];
     kbHideButton.hidden=true;
-    
     NSInteger intQuestionNo =[questionNoTF.text integerValue];
-    NSString *tempQuestionNumber=questionNoTF.text;
-
+   
     if (intQuestionNo==0) {
          questionNoTF.text=[NSString stringWithFormat:@"%d", questionNumberInt];
         [homeScrollView makeToast:@"Enter a valid question Number"
@@ -417,8 +443,6 @@
         answerIndicatorLabel.hidden=TRUE;
         [tableViews reloadData];
     }
-    
-    
 }
 
 
@@ -427,7 +451,6 @@
 {
     
     CGRect tableFrame = CGRectMake(0, 0,screenWidth-20, 200);
-    
     UITableView *tableView = [[UITableView alloc]initWithFrame:tableFrame style:UITableViewStylePlain];
     
     tableView.rowHeight = 50;
@@ -473,8 +496,6 @@
         else{[cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
         }
     }
-    
-    
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.contentView addSubview:imgView];
     
@@ -482,10 +503,10 @@
 }
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView{
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section{
     return [optionsAry count];
 }
@@ -516,99 +537,11 @@
         answertextlbl.text=answertext;
         answerIndicatorLabel.text = @"Incorrect Answer";
         answerIndicatorLabel.backgroundColor = [UIColor redColor];
-        
     }
     
     [tableView reloadData];
     
 }
-
-
-
-- (void) fetchFromCoreData
-{
-        NSManagedObjectContext *context = [self managedObjectContext];
-    
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"QuestionsKit" inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-  
-       NSError *error;
-        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-                // Handle the error.
-                NSLog(@"Fetched objects = nil");
-            }
-        else
-            {
-                   _favouriteStateArray=[[NSMutableArray alloc]init];
-                    _questionArray =[[NSMutableArray alloc]init];
-                    _option1Array =[[NSMutableArray alloc]init];
-                    _option2Array =[[NSMutableArray alloc]init];
-                    _option3Array =[[NSMutableArray alloc]init];
-                    _option4Array =[[NSMutableArray alloc]init];
-                    _correctAnswerArray =[[NSMutableArray alloc]init];
-            
-                    int j=0;
-                    for (int i=0;i< fetchedObjects.count ; i++)
-                        {
-                                _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
-                    
-                                if ([_favouriteState isEqualToString:@"true"]) {
-                                    
-                                        //NSLog(@"_favourite state is true hence in if loop");
-                                        _questionArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
-                                        _option1Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
-                                        _option2Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
-                                        _option3Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
-                                        _option4Array[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
-                                        _correctAnswerArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                           valueForKey:@"correctAnswer"];
-                                    
-                        
-                                        _questionCategoryArray[j] = [[fetchedObjects objectAtIndex:i]
-                                                                                                                   valueForKey:@"questionCategory"];
-                                    
-                                        j=j+1;
-                                    }
-                            
-                            }
-                for (int i= 0; i<fetchedObjects.count; i++) {
-                    _questionCategory = [[fetchedObjects objectAtIndex:i]
-                                                 valueForKey:@"questionCategory"];
-                    
-                    
-                    if ([_questionCategory isEqualToString:@"C"]) {
-                        
-                       _question = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
-                        NSLog(@"The question for C language is %@",_question);
-                    }
-                    
-                }
-            }
-}
--(void) displayFavoriteData:(NSInteger)questionNumber{
-    
-    
-    
-    _option1=[_option1Array objectAtIndex:questionNumber];
-    _option2=[_option2Array objectAtIndex:questionNumber];
-    _option3=[_option3Array objectAtIndex:questionNumber];
-    _option4=[_option4Array objectAtIndex:questionNumber];
-    _question=[_questionArray objectAtIndex:questionNumber];
-    _correctAnswer =[ _correctAnswerArray objectAtIndex:questionNumber];
-    NSLog(@"options %@",_option1); NSLog(@"options %@",_option2);
-    if (optionsAry.count >0)
-    {
-        [optionsAry removeAllObjects];
-    }
-    optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
-    
-    NSLog(@"options %@",optionsAry);
-    
-}
-
-
 
 
 @end

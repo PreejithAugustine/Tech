@@ -10,16 +10,23 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 
-@interface LogoutViewController ()
+@interface LogoutViewController (){
+    float screenWidth;
+    float screenHeight;
+    float tabBarHeight;
+    float statusBarHeight;
+    float navBarHeight;
+}
 
 @end
 
 @implementation LogoutViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationItem setTitle:@"Thech - Quiz"];
+    [self.navigationItem setTitle:@"Logout"];
     UINavigationBar *navBar = [[self navigationController] navigationBar];
     navBar.barTintColor     = [UIColor darkGrayColor];
     navBar.translucent      = false;
@@ -27,63 +34,58 @@
      @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Helvetica Neue" size:18]}];
     self.view.backgroundColor=[UIColor lightGrayColor];
     
+    tabBarHeight    = self.tabBarController.tabBar.frame.size.height;
+    navBarHeight    = self.navigationController.navigationBar.frame.size.height;
+    statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    screenWidth     = self.view.frame.size.width;
+    screenHeight    = self.view.frame.size.height-(navBarHeight+tabBarHeight+statusBarHeight);
+    
+    UIView*  baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
+    baseView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:baseView];
+
+    UIButton *logout = [[UIButton alloc] initWithFrame:CGRectMake(25, screenHeight-100, screenWidth-40, 40)];
+    logout.layer.cornerRadius=10;
+    logout.clipsToBounds=YES;
+    [logout setBackgroundColor:[UIColor whiteColor]];
+    [logout setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [logout addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
+    [logout setTitle:@"Logout"forState:UIControlStateNormal];
+    [baseView addSubview:logout];
 
   
 }
 
 
--(void) viewWillAppear:(BOOL)animated{
+#pragma mark - Button Action
 
-    
-    
-    UIAlertController * alert=   [UIAlertController
-                                  alertControllerWithTitle:@"Logout "
-                                  message:@"Are you sure you want to logout"
-                                  preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* yesButton = [UIAlertAction
-                                actionWithTitle:@"Yes"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action)
-                                {
-                                    //Handel your yes please button action here
-                                    NSLog(@"YES---");
-                                    
-                                 
-                                    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-                                    LoginViewController *loginView = [[LoginViewController alloc] init];
-                                    [appDelegate.window setRootViewController:loginView];
-                                    
-                                    
-                                }];
-    UIAlertAction* noButton = [UIAlertAction
-                               actionWithTitle:@"No, thanks"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action)
-                               {
-                                   //Handel no, thanks button
-                                   NSLog(@"NO---");
-                                   
-                               }];
-    
-    [alert addAction:yesButton];
-    [alert addAction:noButton];
-    
-    [self presentViewController:alert animated:YES completion:nil];
+-(void)logoutAction{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logout"
+                                                    message:@"Are you sure you want to logout"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Yes"
+                                          otherButtonTitles:@"No, thanks", nil];
+    [alert show];
+
+
 }
+
+
+
+#pragma mark - AlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+        LoginViewController *loginView = [[LoginViewController alloc] init];
+        [appDelegate.window setRootViewController:loginView];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
