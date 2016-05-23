@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F27" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="LoginDetails" syncable="YES">
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QuestionsKit" syncable="YES">
         <attribute name="correctAnswer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="correspondingCategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favouriteState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="option1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="option2" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,6 +18,6 @@
     </entity>
     <elements>
         <element name="LoginDetails" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="180"/>
+        <element name="QuestionsKit" positionX="-63" positionY="0" width="128" height="195"/>
     </elements>
 </model>

@@ -24,4 +24,5 @@
 @property (strong,nonatomic) NSString *questionCategory;
 @property (strong, nonatomic) UIButton *favouriteButton;
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *corresSelectCategoryStr;
 @end

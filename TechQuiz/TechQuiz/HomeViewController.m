@@ -54,6 +54,7 @@
     NSArray *option4Array;
     NSArray *correctAnswerArray;
     NSArray *questionCategoryArray;
+    NSArray *correspondingCategoryArray;
     
     NSInteger  questionNumberCount;
     NSInteger  questionNumberInt;
@@ -62,6 +63,23 @@
     NSString *answertext;
     
     DropDown *dropDownTable;
+    NSString *strSelectedCategories;
+    
+    
+ 
+    NSMutableArray *questionSelectArray;
+     NSMutableArray *favoriteStateSelectArray;
+    NSMutableArray *option1SelectArray;
+    NSMutableArray *option2SelectArray;
+    NSMutableArray *option3SelectArray;
+    NSMutableArray *option4SelectArray;
+    NSMutableArray *correctAnswerSelectArray;
+    NSMutableArray *questionCategorySelectArray;
+    NSMutableArray *correspondingCategorySelectArray;
+    
+    NSInteger flagDropDownSelected;
+    
+    
     
     
 }
@@ -106,7 +124,19 @@
     
     questionNumberCount=0;
     tableSelected=0;
+    strSelectedCategories=@"Alls";
     
+    
+    
+    questionSelectArray =[[NSMutableArray alloc]init];
+   option1SelectArray= [[NSMutableArray alloc]init];
+    option2SelectArray =[[NSMutableArray alloc]init] ;
+   option3SelectArray =[[NSMutableArray alloc]init];
+    option4SelectArray =[[NSMutableArray alloc]init];
+   correctAnswerSelectArray =[[NSMutableArray alloc]init];
+   questionCategorySelectArray =[[NSMutableArray alloc]init];
+   correspondingCategorySelectArray =[[NSMutableArray alloc]init];
+    favoriteStateSelectArray=[[NSMutableArray alloc]init];
     [self fetchUsingCoreData:questionNumberCount];
     baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth,screenHeight)];
     baseView.backgroundColor = [UIColor clearColor];
@@ -444,9 +474,16 @@
     
     
     NSLog(@"countofQnext %d",questionNumberCount);
+    if(flagDropDownSelected==0){
     if (questionNumberCount <[questionNoArray count]-1) {
          questionNumberCount=   questionNumberCount+1;
         [self nextquestions];
+    }}
+    else{
+        if (questionNumberCount <[questionCategorySelectArray count]-1) {
+            questionNumberCount=   questionNumberCount+1;
+            [self nextquestions];
+        }
     }
     
    
@@ -455,7 +492,16 @@
 
 -(void)nextquestions{
 
-    [self fetchUsingCoreData:questionNumberCount];
+    if(flagDropDownSelected==1)
+    {
+        [self fetchUsingCoreData:0];
+        [self displaySelectedCategories:questionNumberCount];
+    }
+    else{
+         [self fetchUsingCoreData:questionNumberCount];
+    }
+    
+   
     NSLog(@"Favourite state in next questions = %@",_favouriteState);
     if ([ _favouriteState isEqualToString: @"false"])
     {
@@ -479,21 +525,27 @@
 
 -(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
 {
-    NSLog(@"Right side");
+     NSLog(@"Left side");
     NSLog(@"countofQnext %d",questionNumberCount);
-    if (questionNumberCount <[questionNoArray count]-1) {
-        questionNumberCount=   questionNumberCount+1;
-        [self nextquestions];
+    if(flagDropDownSelected==0){
+        if (questionNumberCount <[questionNoArray count]-1) {
+            questionNumberCount=   questionNumberCount+1;
+            [self nextquestions];
+        }}
+    else{
+        if (questionNumberCount <[questionCategorySelectArray count]-1) {
+            questionNumberCount=   questionNumberCount+1;
+            [self nextquestions];
+        }
     }
     
-    //
-   
+ 
 
 }
 
 -(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
 {
-    NSLog(@"Left side");
+    NSLog(@"right side");
     NSLog(@"countofQnext %d",questionNumberCount);
     if (questionNumberCount>0) {
         questionNumberCount=   questionNumberCount-1;
@@ -567,7 +619,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return [optionsAry count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -575,8 +627,6 @@
     selectedIndexPath=indexPath.row;
     answerIndicatorLabel.hidden = false;
     NSString *selectedAnswer = [optionsAry objectAtIndex:selectedIndexPath];
-    //NSLog(@"option selected is = %@",selectedAnswer);
-    // NSLog(@"_correctAnswer = %@",_correctAnswer);
     answerIndicatorLabel.textAlignment = NSTextAlignmentCenter;
     if ([selectedAnswer isEqualToString:_correctAnswer]){
         correctAnswerView.hidden=TRUE;
@@ -608,8 +658,26 @@
 
 -(void)cellClicked:(NSString *)contentLabel {
     NSLog(@"content %@",contentLabel);
-    _category = contentLabel;
+
+    strSelectedCategories= contentLabel;
+    questionNumberCount=0;
+    questionNumberInt=questionNumberCount;
     [self fetchUsingCoreData:0];
+    [self displaySelectedCategories:questionNumberCount];
+    if ([questionCategorySelectArray count]>0) {
+        
+        questionNoTF.text=[NSString stringWithFormat:@"%d", questionNumberInt+1];
+        totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[questionCategorySelectArray count]];
+        NSString *questions = [NSString stringWithFormat:@"%d, %@", questionNumberInt+1, _question];
+        questiontextlbl.text=questions;
+        
+        [tableViews reloadData];
+    }
+    else{
+        [homeScrollView makeToast:@"There is no question under specified category"
+         ];
+    }
+    
 }
 
 
@@ -635,7 +703,8 @@
     option3Array = [@[@ "Option3a ?",@"Option3b ?",@"Option3c ?",@"Option3d ?",@"Option3e ?"] mutableCopy];
     option4Array = [@[@ "Option4a ?",@"Option4b ?",@"Option4c ?",@"Option4d ?",@"Option4e ?"] mutableCopy];
     correctAnswerArray = [@[@ "Option2a ?",@"Option4b ?",@"Option3c ?",@"Option1d ?",@"Option2e ?"] mutableCopy];
-    questionCategoryArray = [@[@ "Objective C",@"C",@"Swift",@".NET",@"Android"] mutableCopy];
+    questionCategoryArray = [@[@ "Objective C",@"C",@"Swift",@".NET",@"Android",@"All"] mutableCopy];
+    correspondingCategoryArray=[@[@ "Objective C",@"C",@"C",@"C",@"Objective C"] mutableCopy];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -644,9 +713,7 @@
     
     NSError *error = nil;
     NSInteger count = [context countForFetchRequest:request error:&error];
-    
-    //create a new managed object and save to core data
-    //NSLog(@"count =%d",count);
+  
     if (count==0) {
         
         for (int i=0; i<questionArray.count; i++) {
@@ -659,9 +726,13 @@
             [newQuestionKit setValue:[option4Array objectAtIndex:i] forKey:@"option4"];
             [newQuestionKit setValue:[correctAnswerArray objectAtIndex:i] forKey:@"correctAnswer"];
             [newQuestionKit setValue:[questionCategoryArray objectAtIndex:i] forKey:@"questionCategory"];
+            [newQuestionKit setValue:[correspondingCategoryArray objectAtIndex:i] forKey:@"correspondingCategory"];
+
             
             [newQuestionKit setValue:@"false" forKey:@"favouriteState"];
+            
         }
+       
     }
     else {
         
@@ -689,13 +760,10 @@
             _option4 = [[fetchedObjects objectAtIndex:0] valueForKey:@"option4"];
             _correctAnswer = [[fetchedObjects objectAtIndex:0] valueForKey:@"correctAnswer"];
             _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"questionCategory"];
+            _corresSelectCategoryStr=[[fetchedObjects objectAtIndex:0] valueForKey:@"correspondingCategory"];
         }
         
     }
-
-        //save the object to persistent store
-           
-    
     if (![context save:&error]) {
         NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
     }
@@ -720,7 +788,8 @@
     }
     else
     {
-        
+        if([strSelectedCategories isEqualToString:@"Alls"]){
+            flagDropDownSelected=0;
         _questionNo = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"questionNo"];
         _question = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"question"];
         _option1 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option1"];
@@ -729,34 +798,98 @@
         _option4 = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"option4"];
         _correctAnswer = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correctAnswer"];
         _favouriteState = [[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"favouriteState"];
-         _questionCategory =[[fetchedObjects objectAtIndex:0] valueForKey:@"questionCategory"];
-        //NSLog(@"_correctAnswer =%@",_correctAnswer);
+         _questionCategory =[[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"questionCategory"];
+        _corresSelectCategoryStr=[[fetchedObjects objectAtIndex:questionNumber] valueForKey:@"correspondingCategory"];
+       
         if (optionsAry.count >0)
         {
             [optionsAry removeAllObjects];
         }
         optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
-        
+        }
+        else {
+            
+            
+            if (questionCategorySelectArray.count >0)
+            {
+                [questionCategorySelectArray removeAllObjects];
+                 [option1SelectArray removeAllObjects];
+                 [option2SelectArray removeAllObjects];
+                 [option3SelectArray removeAllObjects];
+                 [option4SelectArray removeAllObjects];
+                 [favoriteStateSelectArray removeAllObjects];
+                [correctAnswerSelectArray removeAllObjects];
+            }
+
+            int j=0;
+  
         for (int i= 0; i<fetchedObjects.count; i++) {
-            _questionCategory = [[fetchedObjects objectAtIndex:i]
-                                 valueForKey:@"questionCategory"];
-             if ([_questionCategory isEqualToString:_category]) {
-                _question = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
-                 _option1 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
-                 _option2 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
-                 _option3 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
-                 _option4 = [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
-                 _favouriteState = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
-                 _correctAnswer = [[fetchedObjects objectAtIndex:i] valueForKey:@"correctAnswer"];
-                 NSLog(@"_category =%@",_category);
-                 NSLog(@"_questionCategory =%@",_questionCategory);
-                 NSLog(@"The question is %@",_question);
+            if([strSelectedCategories isEqualToString:@"All"]){
+                
+                NSLog(@"Not all");
+                flagDropDownSelected=1;
+                questionCategorySelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                option1SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
+                option2SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
+                option3SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
+                option4SelectArray[j]= [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
+                favoriteStateSelectArray[j]  = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
+                correctAnswerSelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"correctAnswer"];
+                
+                j=j+1;
+
+                
+            }
+            else{
+                _corresSelectCategoryStr = [[fetchedObjects objectAtIndex:i]
+                                            valueForKey:@"correspondingCategory"];
+                
+                if ([_corresSelectCategoryStr isEqualToString:strSelectedCategories]) {
+                    flagDropDownSelected=1;
+                    
+                    questionCategorySelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"question"];
+                    option1SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option1"];
+                    option2SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option2"];
+                    option3SelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"option3"];
+                    option4SelectArray[j]= [[fetchedObjects objectAtIndex:i] valueForKey:@"option4"];
+                    favoriteStateSelectArray[j]  = [[fetchedObjects objectAtIndex:i] valueForKey:@"favouriteState"];
+                    correctAnswerSelectArray[j] = [[fetchedObjects objectAtIndex:i] valueForKey:@"correctAnswer"];
+                    
+                    j=j+1;
+                }
+                
             }
             
+           
         }
-        
+         
+        }
     }
    
+}
+
+
+-(void) displaySelectedCategories:(NSInteger)questionNo {
+   
+    
+    NSLog(@"question %@",favoriteStateSelectArray);
+    if ([questionCategorySelectArray count]>0) {
+    _question = [questionCategorySelectArray objectAtIndex:questionNo] ;
+    _option1 = [option1SelectArray objectAtIndex:questionNo] ;
+    _option2 = [option2SelectArray objectAtIndex:questionNo];
+    _option3 = [option3SelectArray objectAtIndex:questionNo] ;
+    _option4 = [option4SelectArray objectAtIndex:questionNo];
+    _correctAnswer = [correctAnswerSelectArray objectAtIndex:questionNo] ;
+    _favouriteState = [favoriteStateSelectArray objectAtIndex:questionNo] ;
+  
+    
+    if (optionsAry.count >0)
+    {
+        [optionsAry removeAllObjects];
+    }
+    optionsAry=[@[_option1,_option2,_option3,_option4]mutableCopy];
+    }
+
 }
 
 
