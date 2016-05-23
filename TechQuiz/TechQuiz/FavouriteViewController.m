@@ -81,23 +81,24 @@
 
 -(void) viewWillAppear:(BOOL)animated{
    [self fetchFromCoreData];
+    
+    NSLog(@"correctAnswerCount %d",[_correctAnswerArray count]);
     if ([_correctAnswerArray count]>0){
-        self.view.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+200);
+                 self.view.frame=CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height+200);
         [self loadIntialView];
          totalQuestionNolbl.text=[NSString stringWithFormat:@"/ %lu",(unsigned long)[_questionArray count]];
     }
     else{
-        [baseView removeFromSuperview];
         [self.tabBarController.view makeToast:@"There is no question under specified category"
          ];
+        [self.view.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
     }
 
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
+
 }
 
 
@@ -284,6 +285,11 @@
         questionNumberCount=   questionNumberCount+1;
         [self nextquestions];
     }
+    else{
+        [self.tabBarController.view makeToast:@"You have reached to maximumlimits"
+         ];
+        
+    }
 }
 
 -(void)rightIncrement{
@@ -291,6 +297,9 @@
     if (questionNumberCount>0) {
         questionNumberCount=   questionNumberCount-1;
         [self nextquestions];
+    }else{
+        [self.tabBarController.view makeToast:@"You have reached to minimum  limits"
+         ];
     }
 
 }
@@ -346,7 +355,7 @@
         _option3Array =[[NSMutableArray alloc]init];
         _option4Array =[[NSMutableArray alloc]init];
         _correctAnswerArray =[[NSMutableArray alloc]init];
-        
+     
         int j=0;
         for (int i=0;i< fetchedObjects.count ; i++)
         {
@@ -408,8 +417,7 @@
         float leftLabelWidth = [questionNoTF.text boundingRectWithSize:questionNoTF.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:questionNoTF.font } context:nil] .size.width;
         totalQuestionNolbl.frame=CGRectMake(previousbutton.frame.origin.x+35+leftLabelWidth,10,60,30);
     }
-    
-}
+ }
 
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -423,7 +431,7 @@
     NSInteger intQuestionNo =[questionNoTF.text integerValue];
    
     if (intQuestionNo==0) {
-         questionNoTF.text=[NSString stringWithFormat:@"%d", questionNumberInt];
+         questionNoTF.text=@"1";
         [homeScrollView makeToast:@"Enter a valid question Number"
          ];
     }

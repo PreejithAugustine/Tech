@@ -21,21 +21,13 @@
     arrCategories=[[NSArray alloc] init];
     baseView.backgroundColor = [UIColor clearColor];
     closeButton.backgroundColor=[UIColor clearColor];
- 
-  
     [closeButton addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview: closeButton];
       dropDownTableViews = [self makeTableView];
-    
     [dropDownTableViews registerClass:[UITableViewCell class] forCellReuseIdentifier:@"techQuizTable"];
      [baseView addSubview: dropDownTableViews];
     arrCategories=array;
-   
     NSLog(@"test %@",arrCategories );
-
-    
-    
-    
     return baseView;
 }
 
@@ -48,7 +40,6 @@
     CGRect tableFrame = CGRectMake(0,0,0,0);
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:tableFrame style:UITableViewStylePlain];
-    
     tableView.rowHeight = 50;
     tableView.sectionFooterHeight = 22;
     tableView.sectionHeaderHeight = 22;
@@ -73,7 +64,6 @@
     static NSString *CellIdentifier = @"techQuizTable";
     CGRect Label1Frame = CGRectMake(10,17,100,18);
     UILabel *lblTemp;
-    UIImageView *imgView;
     lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -82,30 +72,13 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-   // NSLog(@"%@ counts",[arrCategories objectAtIndex:indexPath.row]);
     lblTemp.text=[arrCategories objectAtIndex:indexPath.row];
     [cell.contentView addSubview:lblTemp];
-    
-//    cell.imageView .frame= CGRectMake(17,19,15,15);
-//    if(tableSelected==0){
-//        [cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
-//    }
-//    else{
-//        if(indexPath.row==selectedIndexPath){
-//            [cell.imageView setImage:[UIImage imageNamed:@"checkin.png"]];}
-//        else{[cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
-//        }
-//    }
-    
-    
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-   // [cell.contentView addSubview:imgView];
-    
     return cell;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView{
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section{
@@ -120,7 +93,6 @@
     
 }
 -(void)closeView{
-    
-    [baseView removeFromSuperview];
+        [baseView removeFromSuperview];
 }
 @end

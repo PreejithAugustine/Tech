@@ -408,9 +408,10 @@
     if (questionNumberCount>0) {
         questionNumberCount=   questionNumberCount-1;
         [self nextquestions];
+    }else{
+        [self.tabBarController.view makeToast:@"You have reached to minimum limits"
+             ];
     }
-   
-
 }
 -(void) nextAction{
     NSLog(@"countofQnext %d",questionNumberCount);
@@ -418,11 +419,22 @@
     if (questionNumberCount <[questionNoArray count]-1) {
          questionNumberCount=   questionNumberCount+1;
         [self nextquestions];
-    }}
+    }
+    else{
+        [self.tabBarController.view makeToast:@"You have reached to maximum limits"
+         ];
+        
+    }
+    }
     else{
         if (questionNumberCount <[questionCategorySelectArray count]-1) {
             questionNumberCount=   questionNumberCount+1;
             [self nextquestions];
+        }
+        else{
+            [self.tabBarController.view makeToast:@"You have reached to maximumlimits"
+             ];
+            
         }
     }
 
@@ -748,7 +760,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  
 }
 
 
