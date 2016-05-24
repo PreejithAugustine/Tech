@@ -378,7 +378,10 @@
     _option4=[_option4Array objectAtIndex:questionNumber];
     _question=[_questionArray objectAtIndex:questionNumber];
     _correctAnswer =[ _correctAnswerArray objectAtIndex:questionNumber];
-    NSLog(@"options %@",_option1); NSLog(@"options %@",_option2);
+    
+    NSLog(@"options %@",_option1);
+    NSLog(@"options %@",_option2);
+    
     if (optionsAry.count >0)
     {
         [optionsAry removeAllObjects];

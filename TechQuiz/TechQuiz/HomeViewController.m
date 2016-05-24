@@ -599,6 +599,8 @@
     return context;
 }
 
+#pragma mark
+
 - (void) populateArray {
     questionNoArray = [@[@"1",@"2",@"3",@"4",@"5"] mutableCopy];
     questionArray = [@[@ "Question1 ?",@"Question2 ?",@"Question3 ?",@"Question4 ?",@"Question5 ?"] mutableCopy];

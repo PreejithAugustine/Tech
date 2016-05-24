@@ -80,22 +80,8 @@
     lblTemp.tag = 1;
     lblTemp.backgroundColor=[UIColor clearColor];
     lblTemp.numberOfLines=0;
-   // NSLog(@"%@ counts",[arrCategories objectAtIndex:indexPath.row]);
     lblTemp.text=[arrCategories objectAtIndex:indexPath.row];
     [cell.contentView addSubview:lblTemp];
-    
-//    cell.imageView .frame= CGRectMake(17,19,15,15);
-//    if(tableSelected==0){
-//        [cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
-//    }
-//    else{
-//        if(indexPath.row==selectedIndexPath){
-//            [cell.imageView setImage:[UIImage imageNamed:@"checkin.png"]];}
-//        else{[cell.imageView setImage:[UIImage imageNamed:@"checkout.png"]];
-//        }
-//    }
-    
-    
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
    // [cell.contentView addSubview:imgView];
     
@@ -115,6 +101,7 @@
      NSString *selectedAnswer = [arrCategories objectAtIndex:indexPath.row];
     [self.delegate cellClicked:selectedAnswer];
      [baseView removeFromSuperview];
+    
     
 }
 -(void)closeView{

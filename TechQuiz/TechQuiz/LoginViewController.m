@@ -34,8 +34,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-   // self.view.backgroundColor=[UIColor grayColor];
-    // Do any additional setup after loading the view.
+  
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -99,21 +98,21 @@
 - (void)createLoginUI {
     screenWidth = self.view.frame.size.width;
     screenHeight = self.view.frame.size.height;
-    loginView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
+    loginView = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
     loginView.backgroundColor=[UIColor grayColor];
     [self.view addSubview:loginView];
     
     currentKeyboardHeight = 0.0;
     
     UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,100,100)];
-    logoImageView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2-140);
+    logoImageView.center = CGPointMake(screenWidth/2, screenHeight/2-140);
     logoImageView.backgroundColor=[UIColor whiteColor];
     logoImageView.image = [UIImage imageNamed:@"quiz.jpg"];
     logoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [loginView addSubview:logoImageView];
 
     userNameTF=[[UITextField alloc]initWithFrame:CGRectMake(20, screenHeight-280,screenWidth-40, 40)];
-    userNameTF.center = CGPointMake(self.view.frame.size.width/2-10,screenHeight-275);
+    userNameTF.center = CGPointMake(screenWidth/2-10,screenHeight-275);
     userNameTF.placeholder = @"User Name";
     [userNameTF setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     userNameTF.textAlignment=NSTextAlignmentCenter;
@@ -282,16 +281,11 @@
 #pragma mark -  Text Field delegates
 -(void) navigateToHomeView{
 
-    HomeViewController *homeView = [[HomeViewController alloc] init];
-    homeViewController = homeView;
+   
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-     
     [appDelegate.tabBarController setSelectedIndex:0];
     [appDelegate.window setRootViewController:appDelegate.tabBarController];
-//    UINavigationController *viewMenu = [[UINavigationController alloc] initWithRootViewController:homeView];
-//      AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//     [appDelegate.window setRootViewController:viewMenu];
-//      viewMenu.navigationBar.barTintColor=[UIColor darkGrayColor];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

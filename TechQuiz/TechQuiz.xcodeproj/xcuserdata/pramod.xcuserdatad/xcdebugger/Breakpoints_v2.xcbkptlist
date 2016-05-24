@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TechQuiz/LoginViewController.m"
-            timestampString = "485074306.450236"
+            timestampString = "485698882.496493"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-insertLoginDetais"
             landmarkType = "5">
          </BreakpointContent>
